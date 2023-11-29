@@ -49,6 +49,7 @@ class Spider():
         self.JadeLog.release()
 
     def get_pic(self,name):
+        self.JadeLog.INFO("准备进行百度爬虫")
         name = self.remove_special_chars(name.split(".")[0])
         url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
         self.driver.get(url)
