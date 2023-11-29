@@ -26,6 +26,7 @@ class SpiderXiaoZhiTiao(Spider):
     def parase(self,html):
         soup = BeautifulSoup(html, 'lxml')
         elemets = soup.find_all("tbody") ## 最近,置顶,资源列表三
+        self.JadeLog.INFO("阿里小纸条资源解析成功",True)
         classes = self.getCategoryContent(elemets[3])
         self.JadeLog.INFO("阿里纸条分类页解析完成",True)
         vod_list = self.getHomeContent(elemets[1])
