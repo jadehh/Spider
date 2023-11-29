@@ -84,5 +84,5 @@ class SpiderXiaoZhiTiao(Spider):
                 vodId,vodName,vodPic,vodRemarks = self.parase_category_element(element)
                 classes_dic[tmp_index]["list"].append({"vod_id": vodId, "vod_name": vodName, "vod_pic": vodPic,
                  "vod_remarks": vodRemarks})
-        self.categort_list = self.categort_list[:19]
+        self.categort_list = self.categort_list[:19] ##下个版本优化
         return classes_dic[:19]
