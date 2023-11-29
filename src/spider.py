@@ -54,7 +54,7 @@ class Spider():
         url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
         try:
             self.driver.get(url)
-            time.sleep(5)
+            time.sleep(2)
             pic_url = self.parase_baidu_pic_serarch(name,self.driver.page_source)
             return pic_url
         except Exception as e:
