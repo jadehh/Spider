@@ -12,21 +12,19 @@ import time
 
 class SpiderXiaoZhiTiao(Spider):
     def __init__(self):
-        self.home_url = "https://ali.gitcafe.ink/"
+        self.home_url = "https://o.gitcafe.net"
         self.categort_list = []
         super().__init__()
 
     def get(self):
         self.driver.get(self.home_url)
-        time.sleep(10)
-        self.JadeLog.INFO("阿里小纸条爬虫成功:{}".format(self.driver.page_source),True)
+        time.sleep(2)
         self.parase(self.driver.page_source)
         self.release()
 
     def parase(self,html):
         soup = BeautifulSoup(html, 'lxml')
         elemets = soup.find_all("tbody") ## 最近,置顶,资源列表三
-        self.JadeLog.INFO("阿里小纸条资源解析成功",True)
         classes = self.getCategoryContent(elemets[3])
         self.JadeLog.INFO("阿里纸条分类页解析完成",True)
         vod_list = self.getHomeContent(elemets[1])
