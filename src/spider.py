@@ -20,8 +20,8 @@ class Spider():
             chrome_path = r"C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe"
             driver_path = r"C:\Users\Administrator\Downloads\chromedriver-win64\chromedriver.exe"
         elif getOperationSystem() == "Linux":
-            chrome_path = "/opt/google/chrome/chrome"
-            driver_path = "/opt/selenium/chromedriver-88.0.4324.96"
+            chrome_path = "/usr/bin/google-chrome"
+            driver_path = "/usr/bin/chromedriver"
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")  # 无头
         options.add_argument("--disbale-gpu")  # 无gpu图形化界面

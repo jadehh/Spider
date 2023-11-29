@@ -7,7 +7,7 @@ jobs:
   build:
     name: 爬虫定时任务
     container:
-      image: openstax/selenium-chrome:latest
+      image: jadehh/ubuntu:spider-1.0.0
     runs-on: ${{ matrix.os}}
     strategy:
       fail-fast: false
