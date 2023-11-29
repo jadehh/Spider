@@ -31,6 +31,7 @@ class Spider():
         chrome_driver_service = Service(driver_path)
         self.driver = webdriver.Chrome(options=options,service=chrome_driver_service)
         self.JadeLog = JadeLogging("/tmp/",Level="INFO")
+        self.driver.implicitly_wait(10)
     def get(self):
 
         pass
