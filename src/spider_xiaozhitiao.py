@@ -54,8 +54,6 @@ class SpiderXiaoZhiTiao(Spider):
         vodRemarks = element.find("td").get("tooltip").split("|")[-1]
         vodName = element.text.replace("\n","").replace(" ","")[:-19]
         vodPic = self.get_pic(vodName)
-        print(self.get_pic)
-        print(vodPic)
         return vodId,vodName,vodPic,vodRemarks
     def getVod(self,elements):
         vod_list = []
