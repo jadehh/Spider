@@ -7,7 +7,7 @@ jobs:
   build:
     name: 爬虫定时任务
     container:
-      image: openstax/selenium-chrome:latest
+      image: jadehh/python:3.8.16-ubuntu18.04
     runs-on: ${{ matrix.os}}
     strategy:
       fail-fast: false
