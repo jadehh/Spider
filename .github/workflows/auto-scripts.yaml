@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    name: ${{ matrix }}爬虫定时任务
+    name: 爬虫定时任务
     container:
       image: openstax/selenium-chrome:latest
     runs-on: ${{ matrix.os}}
@@ -20,7 +20,7 @@ jobs:
           repository: jadehh/Spider
           ref: main
           path: code
-          token: ${{ secrets.Token }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
       - name: 安装pip环境
         run: |
           pip install -r code/requirements.txt
