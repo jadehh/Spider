@@ -36,6 +36,7 @@ class SpiderXiaoZhiTiao(Spider):
         }
         with open("json/xiaozhitiao.json","wb") as f:
             f.write(json.dumps(xiaozhitiao_json).encode("utf-8"))
+        self.JadeLog.INFO("阿里小纸条JSON文件写入成功",True)
 
     def parase_home_element(self,element):
         update_time = (element.text.split("【"))[0].replace(" ", "")
@@ -62,8 +63,6 @@ class SpiderXiaoZhiTiao(Spider):
                 vod_list.append({"vod_id": vodId, "vod_name": vodName + ":更新时间为:{}".format(update_time), "vod_pic": vodPic, "vod_remarks": vodRemarks})
         return vod_list
 
-    def get_pic(self,name):
-        return ""
 
     def getHomeContent(self,elements):
         return self.getVod(elements.find_all("tr"))
