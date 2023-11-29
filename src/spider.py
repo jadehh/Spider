@@ -52,7 +52,7 @@ class Spider():
         name = self.remove_special_chars(name.split(".")[0])
         url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
         self.driver.get(url)
-        time.sleep(10)
+        time.sleep(5)
         pic_url = self.parase_baidu_pic_serarch(name,self.driver.page_source)
         return pic_url
 
