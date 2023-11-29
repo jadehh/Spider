@@ -1,0 +1,30 @@
+name: 爬虫定时任务
+on:
+  schedule:
+  - cron: 0 * * * *
+  workflow_dispatch:
+jobs:
+  build:
+    name: ${{ matrix }}爬虫定时任务
+    container:
+      image: openstax/selenium-chrome:latest
+    runs-on: ${{ matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu-latest" ] #, "macos-latest", "windows-latest"
+    steps:
+      - name: 下载代码
+        uses: actions/checkout@v3
+        with:
+          repository: jadehh/Spider
+          ref: main
+          path: code
+          token: ${{ secrets.Token }} # `GH_PAT` is a secret that contains your PAT
+      - name: 安装pip环境
+        run: |
+          pip install -r code/requirements.txt
+      - name: 执行爬虫脚本
+        run: |
+          cd code
+          python test.py

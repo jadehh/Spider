@@ -1,0 +1,2 @@
+selenium
+https://github.com/jadehh/pythonTools/releases/download/JadeV2.1.2/jade-2.1.2-py3-none-any.whl

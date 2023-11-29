@@ -1,0 +1,194 @@
+{
+  "class": [
+    {
+      "type_id": "hyds",
+      "type_name": "华语电视"
+    },
+    {
+      "type_id": "rhds",
+      "type_name": "日韩电视"
+    },
+    {
+      "type_id": "omds",
+      "type_name": "欧美电视"
+    },
+    {
+      "type_id": "qtds",
+      "type_name": "其他电视"
+    },
+    {
+      "type_id": "hydy",
+      "type_name": "华语电影"
+    },
+    {
+      "type_id": "rhdy",
+      "type_name": "日韩电影"
+    },
+    {
+      "type_id": "omdy",
+      "type_name": "欧美电影"
+    },
+    {
+      "type_id": "qtdy",
+      "type_name": "其他电影"
+    },
+    {
+      "type_id": "hydm",
+      "type_name": "华语动漫"
+    },
+    {
+      "type_id": "rhdm",
+      "type_name": "日韩动漫"
+    },
+    {
+      "type_id": "omdm",
+      "type_name": "欧美动漫"
+    },
+    {
+      "type_id": "jlp",
+      "type_name": "纪录片"
+    },
+    {
+      "type_id": "zyp",
+      "type_name": "综艺片"
+    },
+    {
+      "type_id": "hyyy",
+      "type_name": "华语音乐"
+    },
+    {
+      "type_id": "rhyy",
+      "type_name": "日韩音乐"
+    },
+    {
+      "type_id": "omyy",
+      "type_name": "欧美音乐"
+    },
+    {
+      "type_id": "qtyy",
+      "type_name": "其他音乐"
+    }
+  ],
+  "list": [
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/J9CjtFwbkKd",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "LL乐游原-4K",
+      "vod_remarks": "2023-11-28 15:37:24"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/AuzwmUHc2xG",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "对你不止是喜欢4K",
+      "vod_remarks": "2023-11-26 07:47:54"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/wogLfBxLMTY",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "无所畏惧完结 4K2023",
+      "vod_remarks": "2023-11-28 16:45:33"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/NoEDWwjmFSw",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "无所畏惧4K4K",
+      "vod_remarks": "2023-11-27 14:53:44"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/wyek66W6MN5",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "繁城之下4K",
+      "vod_remarks": "2023-11-28 19:11:59"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/NNnHWvei39N",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "J极速悖论20234K",
+      "vod_remarks": "2023-11-28 15:37:50"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/VLYN9W82GST",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "山有木兮木有心2023 4K",
+      "vod_remarks": "2023-11-27 15:15:19"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/ePAiAjGAJ3M",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "岁岁青莲4K2023",
+      "vod_remarks": "2023-11-28 16:43:53"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/wBcKBmBuDkW",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "问心4K4K",
+      "vod_remarks": "2023-11-27 14:48:00"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/UzS5FP6tipE",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "Y云襄传 2023",
+      "vod_remarks": "2023-11-25 15:17:37"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/GX122KZSMe7",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "长安诡事传",
+      "vod_remarks": "2023-11-28 18:17:37"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/uwXG3BVJoSF",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "中国有滋味",
+      "vod_remarks": "2023-11-25 10:19:57"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/a7E2SfExyuw",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "以爱为营4K",
+      "vod_remarks": "2023-11-28 15:35:26"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/1KftQQrkAxz",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "N南海归墟4K²",
+      "vod_remarks": "2023-11-27 19:10:19"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/QVvQw64fUgJ",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "故乡,别来无恙2023",
+      "vod_remarks": "2023-11-28 16:38:50"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/HG33DpwFrz1",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "无所畏惧4K",
+      "vod_remarks": "2023-11-28 15:36:25"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/eWcZ1cZcMN4",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "C超时空护卫队4K",
+      "vod_remarks": "2023-11-28 15:39:13"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/YNwvVqcXbbP",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "新闻女王2023",
+      "vod_remarks": "2023-11-25 17:18:39"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/eAQNU54s5r3",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "南海归墟2023",
+      "vod_remarks": "2023-11-27 19:23:30"
+    },
+    {
+      "vod_id": "https:\/\/www.aliyundrive.com\/s\/hNuGhwssmLL",
+      "vod_pic": "https:\/\/www.lgstatic.com\/i\/image2\/M01\/15\/7E\/CgoB5lysLXCADg6ZAABapAHUnQM321.jpg",
+      "vod_name": "南海归墟附鬼吹灯系列合集",
+      "vod_remarks": "2023-11-27 22:55:32"
+    }
+  ]
+}
