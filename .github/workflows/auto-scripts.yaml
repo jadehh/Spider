@@ -28,5 +28,4 @@ jobs:
         run: |
           cd code
           python test.py
-          cat /tmp/info.log
           cat json/xiaozhitiao.json

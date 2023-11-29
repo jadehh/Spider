@@ -18,7 +18,7 @@ class SpiderXiaoZhiTiao(Spider):
 
     def get(self):
         self.driver.get(self.home_url)
-        time.sleep(2)
+        time.sleep(10)
         self.JadeLog.INFO("阿里小纸条爬虫成功:{}".format(self.driver.page_source),True)
         self.parase(self.driver.page_source)
         self.release()
