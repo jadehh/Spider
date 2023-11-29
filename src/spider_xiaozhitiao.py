@@ -19,6 +19,7 @@ class SpiderXiaoZhiTiao(Spider):
     def get(self):
         self.driver.get(self.home_url)
         time.sleep(2)
+        self.JadeLog.INFO("阿里小纸条网页爬虫成功",True)
         self.parase(self.driver.page_source)
         self.release()
 
@@ -53,7 +54,6 @@ class SpiderXiaoZhiTiao(Spider):
         vodRemarks = element.find("td").get("tooltip").split("|")[-1]
         vodName = element.text.replace("\n","").replace(" ","")[:-19]
         vodPic = self.get_pic(vodName)
-        self.JadeLog.INFO("vod pic:{}".format(vodPic))
         return vodId,vodName,vodPic,vodRemarks
     def getVod(self,elements):
         vod_list = []
