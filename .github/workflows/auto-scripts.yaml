@@ -6,10 +6,7 @@ on:
 jobs:
   build:
     name: 爬虫定时任务
-    container:
-      image: jadehh/ubuntu:spider-1.0.0
-      options: --shm-size=2gb
-    runs-on: ${{ matrix.os}}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
