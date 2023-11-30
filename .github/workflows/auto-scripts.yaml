@@ -36,7 +36,6 @@ jobs:
           git config --global user.email "jadehh@live.com"
           git config --global user.name "jade"
           ls -l
-#          cp code/json/xiaozhitiao.json
           git add json/*
           commit_msg="*  更新小纸条爬虫结果"
           git commit -a -m "$commit_msg"
