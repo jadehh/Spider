@@ -32,10 +32,26 @@ jobs:
 
       - name: 上传爬虫json文件
         run: |
-          cd code
+          git checkout main
           git config --global user.email "jadehh@live.com"
           git config --global user.name "jade"
-          git add json/xiaozhitiao.json
-          commit_msg="*  更新小纸条爬虫结果"
-          git commit -a -m "$commit_msg"
-          
+          ls -l
+#          cp code/json/xiaozhitiao.json
+#          git add json/xiaozhitiao.json
+#          commit_msg="*  更新小纸条爬虫结果"
+#          git commit -a -m "$commit_msg"
+      
+#      - name: 查看当前分支信息
+#        run: |
+#          ls -l
+#      - name: 上传分支
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GH_PAT }}
+#          repository: jadehh/Spider
+#          directory: .
+#          branch: main
+#          force: true
+#          tags: true
+#        env:
+#          GITHUB_ACTOR: jadehh
