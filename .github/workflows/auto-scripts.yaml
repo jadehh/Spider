@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: jadehh/Spider
+          ref: main
           fetch-depth: 0  # 显示所有提交的日志
           token: ${{ secrets.GH_PAT }}
       - name: 安装pip环境
