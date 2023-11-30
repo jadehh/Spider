@@ -19,6 +19,10 @@ jobs:
           ref: main
           fetch-depth: 0  # 显示所有提交的日志
           token: ${{ secrets.GH_PAT }}
+      - name: 查看谷歌环境
+        run: |
+          ls /usr/bin/google-chrome -l
+          ls /usr/bin/chromedriver -l
       - name: 安装pip环境
         run: |
           ls
