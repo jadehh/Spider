@@ -69,7 +69,7 @@ class Spider():
             max_score = 0
             max_score_element = None
             for element in elements:
-                sim_score = self.similarity_str(name + "主演" + "电视剧" + "电影" + "海报", element.text)
+                sim_score = self.similarity_str(name + "海报", element.text)
                 if sim_score > max_score:
                     max_score = sim_score
                     max_score_element = element

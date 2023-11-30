@@ -1,7 +1,7 @@
 name: 爬虫定时任务
 on:
   schedule:
-  - cron: 0 * * * *
+  - cron: 0 16 * * *
   workflow_dispatch:
 jobs:
   build:
@@ -29,4 +29,14 @@ jobs:
         run: |
           cd code
           python test.py
+
+      - name: 上传爬虫json文件
+        run: |
+          cd code
           cat json/xiaozhitiao.json
+          git config --global user.email "jadehh@live.com"
+          git config --global user.name "jade"
+          git add json/xiaozhitiao.json
+          commit_msg="*  更新小纸条爬虫结果{tag}"
+          git commit -a -m "$commit_msg"
+          
