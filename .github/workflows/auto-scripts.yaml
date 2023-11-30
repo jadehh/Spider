@@ -23,6 +23,8 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: 安装pip环境
         run: |
+          ls
+          git checkout main
           pip install -r requirements.txt
       - name: 执行爬虫脚本
         run: |

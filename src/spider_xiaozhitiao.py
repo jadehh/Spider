@@ -49,7 +49,7 @@ class SpiderXiaoZhiTiao(Spider):
             "list": vod_list
         }
         with open("json/xiaozhitiao.json", "wb") as f:
-            f.write(json.dumps(xiaozhitiao_json).encode("utf-8"))
+            f.write(json.dumps(xiaozhitiao_json,indent=4).encode("utf-8"))
         self.JadeLog.INFO("阿里小纸条JSON文件写入成功", True)
 
 
