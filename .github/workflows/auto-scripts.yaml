@@ -41,17 +41,17 @@ jobs:
           commit_msg="*  更新小纸条爬虫结果"
           git commit -a -m "$commit_msg"
       
-#      - name: 查看当前分支信息
-#        run: |
-#          ls -l
-#      - name: 上传分支
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GH_PAT }}
-#          repository: jadehh/Spider
-#          directory: .
-#          branch: main
-#          force: true
-#          tags: true
-#        env:
-#          GITHUB_ACTOR: jadehh
+      - name: 查看当前分支信息
+        run: |
+          ls -l
+      - name: 上传分支
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          repository: jadehh/Spider
+          directory: .
+          branch: main
+          force: true
+          tags: true
+        env:
+          GITHUB_ACTOR: jadehh
