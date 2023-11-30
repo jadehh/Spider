@@ -111,8 +111,6 @@ class SpiderXiaoZhiTiao(Spider):
                 vod_list.append(vod_dic)
         return vod_list
 
-    def get_pic(self, name):
-        return ""
 
     def getHomeContent(self, elements):
         return self.getVod(elements.find_all("tr"))
