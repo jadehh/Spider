@@ -29,6 +29,7 @@ jobs:
           python test.py
       - name: 上传爬虫json文件
         run: |
+          cat json/xiaozhitiao.json
           git config --global user.email "jadehh@live.com"
           git config --global user.name "jade"
           ls -l
