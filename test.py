@@ -6,15 +6,19 @@
 # @Email    : jadehh@1ive.com
 # @Software : Samples
 # @Desc     :
-from src.spider import Spider
 from bs4 import BeautifulSoup
 from difflib import SequenceMatcher  # 导入库
-def similarity_str(a, b):
-    return SequenceMatcher(None, a, b).ratio()
+
 def test_xiaozhitiao_spider():
     from src.spider_xiaozhitiao import SpiderXiaoZhiTiao
     spider = SpiderXiaoZhiTiao()
     spider.get()
+
+def test_yunpan_share_spider():
+    from src.spider_yunpanshare import SpiderYunPanShare
+    spider = SpiderYunPanShare()
+    spider.homeContent(False)
+
 
 
 

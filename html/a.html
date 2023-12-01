@@ -1,500 +1,824 @@
-<html lang="zh-CN"><head>
-    <meta charset="utf-8">
-    <title>小纸条-开放纯粹的资源网站</title>
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="http://a.gitcafe.net">
-    <link rel="dns-prefetch" href="https://u.gitcafe.net">
-    <link rel="dns-prefetch" href="https://o.gitcafe.net">
-    <meta name="robots" content="index,follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="theme-color" content="#ffb549">
-    <meta name="application-name" content="小纸条-开放纯粹的资源网站">
-    <meta name="description" content="小纸条是一个网友资源互助分享网页，可以实现免注册登陆即可获取资源！立志于提供全网最全面的资源整合；网站内容来源于网友投稿，仅只适用于学习和交流测试">
-    <meta name="color-scheme" content="dark light">
-    <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAKlBMVEUAAADSZDfSZDfryaDSZDe0RjLrh0u/UTTWaTpLP07///9dU2BaT13ryaCZFnJdAAAABHRSTlMAzPl3IDm31QAAAAFiS0dECmjQ9FYAAAAHdElNRQfmAgUJCiJhiWOMAAAAbUlEQVQI12NgcGAAAhYgDhEA0q5ARqgLA4NLKIgR4pbmCmKUeqSlpYUDGSpuQEYKkOGSBgJIDBaXWWlpq9MSGFjcZqelzQEyXNzSIHJ3715LS8u9e5eB+e61zG25dw2A2kAMBjAAmwICvBeABAC90CPadJikOwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0wNVQwNjoxMDozNCswMzowMCU/+JYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMDVUMDY6MTA6MzQrMDM6MDBUYkAqAAAAAElFTkSuQmCC" rel="icon">
-    <link rel="stylesheet" href="assets/css/ui.css">
-    <style>
-        * {
-            font-family: "Microsoft YaHei";
-        }
-
-        .ui-dialog-footer,
-        .ui-dialog-body,
-        .center,
-        h1,
-        h4 {
-            text-align: center
-        }
-
-        .key_nav td span {
-            float: right;
-            display: block
-        }
-
-        table.GeneratedTable {
-            width: 100%;
-            background-color: #fff;
-            border-collapse: collapse;
-            border: 2px solid #ffb549;
-            color: #000
-        }
-
-        table.GeneratedTable td,
-        table.GeneratedTable th {
-            border: 2px solid #ffb549;
-            padding: 3px
-        }
-
-        table.GeneratedTable thead {
-            background-color: #ffb549
-        }
-
-        .tableizer-table td,
-        table.tableizer-table {
-            border: 1px solid #ccc
-        }
-
-        .tableizer-table td {
-            padding: 4px;
-            margin: 3px
-        }
-
-        .tableizer-title {
-            background-color: #104e8b;
-            color: #fff;
-            font-weight: 700
-        }
-
-        a {
-            text-decoration: none
-        }
-
-        .tableizer-title a {
-            color: #fff
-        }
-
-        .cat {
-            background-color: #ffeead;
-            font-weight: 700;
-            text-align: center;
-            position: -webkit-sticky;
-            position: sticky;
-            padding: 10px;
-            top: 0;
-        }
-
-        #TopBtn {
-            bottom: 45px;
-            right: 15px;
-            position: fixed;
-            z-index: 99
-        }
-
-        .GeneratedTable tbody tr:hover {
-            background-color: #eee
-        }
-
-        .dark {
-            color: #4c5161
-        }
-
-        .blue {
-            color: #2a80eb
-        }
-
-        .gray {
-            color: #a2a9b6
-        }
-
-        .white {
-            color: #fff
-        }
-
-        .green {
-            color: #1cad70
-        }
-
-        .orange {
-            color: #f59b00
-        }
-
-        .red {
-            color: #eb4646
-        }
-
-        .light {
-            color: #f7f9fa
-        }
-
-        .allkey>tr>td:first-child {
-            width: 30% !important
-        }
-
-        [tooltip] {
-            position: relative
-        }
-
-        [tooltip]:after,
-        [tooltip]:before {
-            text-transform: none;
-            font-size: .9em;
-            line-height: 1.5;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            pointer-events: none;
-            position: absolute;
-            display: none;
-            opacity: 0
-        }
-
-        [tooltip]:before {
-            content: "";
-            border: 5px solid transparent;
-            z-index: 1001
-        }
-
-        [tooltip]:after {
-            content: attr(tooltip);
-            text-align: left;
-            width: 20em;
-            padding: 1ch 1.5ch;
-            border-radius: .3ch;
-            box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, .35);
-            background: #000;
-            color: #fff;
-            z-index: 1000
-        }
-
-        [tooltip]:hover:after,
-        [tooltip]:hover:before {
-            display: block
-        }
-
-        [tooltip=""]:after,
-        [tooltip=""]:before {
-            display: none !important
-        }
-
-        [tooltip]:not([flow]):before {
-            bottom: 100%;
-            border-bottom-width: 0;
-            border-top-color: #000
-        }
-
-        [tooltip]:not([flow]):after {
-            bottom: calc(100% + 5px)
-        }
-
-        [tooltip]:not([flow]):after,
-        [tooltip]:not([flow]):before {
-            left: 50%;
-            -webkit-transform: translate(-50%, -.5em);
-            transform: translate(-50%, -.5em)
-        }
-
-        @-webkit-keyframes tooltips-vert {
-            to {
-                opacity: .9;
-                -webkit-transform: translate(-50%);
-                transform: translate(-50%)
-            }
-        }
-
-        @keyframes tooltips-vert {
-            to {
-                opacity: .9;
-                -webkit-transform: translate(-50%);
-                transform: translate(-50%)
-            }
-        }
-
-        [tooltip]:not([flow]):hover:after,
-        [tooltip]:not([flow]):hover:before {
-            -webkit-animation: tooltips-vert .15s ease-out forwards;
-            animation: tooltips-vert .15s ease-out forwards
-        }
-
-        input {
-            box-sizing: border-box;
-            padding-left: 50px;
-            height: 40px;
-            outline: 0;
-            border: 1px solid #666;
-            border-radius: 4px;
-            color: #4c5161;
-            font-size: 14px;
-            transition: border-color .2s, background-color .2s;
-            -webkit-appearance: none;
-            appearance: none
-        }
-
-        hr {
-            color: #666;
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.5;
-            overflow: visible;
-            text-align: inherit;
-            margin: 0 0 20px;
-            border: 0;
-            border-top: 1px solid #e5e5e5
-        }
-
-        .link_head {
-            line-height: 1.4;
-            color: inherit
-        }
-
-        .subtitle {
-            position: relative;
-            color: #4c5161;
-            height: 45px;
-            line-height: 45px;
-            text-align: center
-        }
-
-        .subtitle:before {
-            left: 2%
-        }
-
-        .subtitle:after,
-        .subtitle:before {
-            content: "";
-            position: absolute;
-            width: 30%;
-            height: 1px;
-            top: 50%;
-            background-color: #a2a9b6
-        }
-
-        .subtitle:after {
-            right: 2%
-        }
-
-        .ui-dropanel-x {
-            width: auto;
-        }
-
-        .btn-size {
-            padding: 2px 10px;
-        }
-
-        ui-drop {
-            display: flex;
-            justify-content: center;
-        }
-
-        .ui-dropanel-x>.ui-button {
-            float: right;
-            margin: 2px
-        }
-
-        .page {
-            display: flex;
-            justify-content: center;
-            margin: 2px;
-            padding: 15px;
-        }
-
-        .backtop {
-            position: fixed;
-            right: 1rem;
-            bottom: 76px;
-            background-color: rgba(0, 0, 0, .5);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            text-align: center;
-            border: 10px solid transparent;
-            display: none;
-            transition: background .15s;
-            font-size: 0;
-            background-image: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1812 1024' xmlns='http://www.w3.org/2000/svg' width='353.906' height='200'%3E%3Cpath d='M889.849 273.684L194.723 968.809c-44.462 44.462-116.654 44.455-161.186-.076-44.841-44.842-44.565-116.697-.076-161.186L807.674 33.334c44.461-44.462 116.654-44.455 161.185.077a117.133 117.133 0 0 1 5.942 6.4 114.147 114.147 0 0 1 19.08 15.38l774.212 774.212c44.49 44.49 44.766 116.344-.076 161.186-44.532 44.532-116.724 44.539-161.186.077L889.849 273.684z' fill='%23fff'/%3E%3C/svg%3E");
-            background-size: 20px 10px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        #keywords ul {
-            display:flex;
-            list-style-type: none;
-            flex-flow: wrap;
-        }
-        #keywords li {
-            align-items:center;
-            margin-bottom:10px;
-        }
-
-        @media (any-hover: hover) {
-            .backtop:hover {
-                background-color: rgba(0, 0, 0, .65)
-            }
-        }
-
-        /* 文档支持移动端 */
-        @media screen and (max-width: 640px) {
-            #keywords ul {
-                display:flex;
-                list-style-type: none;
-                flex-flow: wrap;
-                padding: 0;
-            }
-            #keywords li {
-                align-items:center;
-                margin-bottom:2px;
-            }
-            .m_hide {
-                display: none;
-            }
-
-            .key_nav tr {
-                width: 33%;
-                float: left;
-                height: 185px;
-            }
-
-            .key_nav td {
-                display: block;
-            }
-
-            .allkey [tooltip]:not([flow])::after,
-            .allkey [tooltip]:not([flow])::before {
-                left: 90%;
-            }
-
-            .backtop {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    </style>
-    <style id="theme-options-filter"></style>
-</head>
-
-<body>
-    <div class="center"><img title="小纸条-开放纯粹的资源网站" alt="小纸条-开放纯粹的资源网站" src="data:image/png;base64,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">
-    </div>
-    <h1 style="margin-top: 0px;"><a class="link_head" href="">小纸条</a></h1>
-    <div class="center"> <a tooltip="你可以把你的资源投稿到小纸条，在打开后的页面中填写好表单即可" style="margin-right:30px;" type="success" class="ui-button button-success" onclick="gotobtn('tougao');" href="javascript:;">投稿资源</a><a tooltip="实际上是腾讯图个槽，作为一个简单的交流区，顺便做吐槽平台" style="margin-right:30px;" onclick="gotobtn('support');" href="javascript:;" type="danger" class="ui-button button-error">交流圈子</a><a tooltip="打开后用微信扫码关注一个公众号，这个是用来推送微信信息的，如果小纸条有资源更新的话，会通过这个公众号发信息提醒你的，强烈建议关注" class="ui-button" onclick="gotobtn('wxqr');" type="primary" href="javascript:;">微信订阅</a></div>
-    <div class="center" style="border:1px dashed #f00;margin: 30px 10px;padding: 20px;">
-        <input type="search" placeholder="回车搜索" id="wp-filter-search-input" class="wp-filter-search">
-        <div id="s-notice" class="green"></div>
-        <h4>当前共收录 <span class="all_num"></span> 个资源</h4>
-        <h4>今天更新 <span class="today_num" style="color:#f00;"></span> 个资源</h4>
-    </div>
-
-    <div class="center" id="sponsor" style="border:1px dashed #373c42;margin: 10px 10px;padding: 20px;background-color: #eee;"><span><a target="_blank" href="https://support.qq.com/products/375895/blog/774551">赞助小纸条</a></span></div>
-
-        <h2 class="navh2 subtitle">昨日热搜</h2>
-        <div class="center" id="keywords" style="border:1px dashed #373c42;margin: 10px 10px;padding: 20px;background-color: #eee;"></div>
-
-    <h2 class="navh2 subtitle">资源导航</h2>
-    <table class="tableizer-table key_nav " style="table-layout: fixed;" width="100%">
-        <tbody>
-            <tr>
-                <td class="tableizer-title"><a id="ds_nav" href="#hyds">电视</a></td>
-                <td><a onclick="load_data('hyds');" href="javascript:;">华语</a><span class="hyds_num"></span></td>
-                <td><a onclick="load_data('rhds');" href="javascript:;">日韩</a><span class="rhds_num"></span></td>
-                <td><a onclick="load_data('omds');" href="javascript:;">欧美</a><span class="omds_num"></span></td>
-                <td><a onclick="load_data('qtds');" href="javascript:;">其他</a><span class="qtds_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a id="dy_nav" href="#hydy">电影</a></td>
-                <td><a onclick="load_data('hydy');" href="javascript:;">华语</a><span class="hydy_num"></span></td>
-                <td><a onclick="load_data('rhdy');" href="javascript:;">日韩</a><span class="rhdy_num"></span></td>
-                <td><a onclick="load_data('omdy');" href="javascript:;">欧美</a><span class="omdy_num"></span></td>
-                <td><a onclick="load_data('qtdy');" href="javascript:;">其他</a><span class="qtdy_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a id="dm_nav" href="#hydm">动漫</a></td>
-                <td><a onclick="load_data('hydm');" href="javascript:;">国漫</a><span class="hydm_num"></span></td>
-                <td><a onclick="load_data('rhdm');" href="javascript:;">日本</a><span class="rhdm_num"></span></td>
-                <td><a onclick="load_data('omdm');" href="javascript:;">欧美</a><span class="omdm_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a id="sp_nav" href="#jlp">视频</a></td>
-                <td><a onclick="load_data('jlp');" href="javascript:;">纪录</a><span class="jlp_num"></span></td>
-                <td><a onclick="load_data('zyp');" href="javascript:;">综艺</a><span class="zyp_num"></span></td>
-                <td><a onclick="load_data('jypx');" href="javascript:;">教育</a><span class="jypx_num"></span></td>
-                <td><a onclick="load_data('qtsp');" href="javascript:;">其他</a><span class="qtsp_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a href="#hyyy">音乐</a></td>
-                <td><a onclick="load_data('hyyy');" href="javascript:;">华语</a><span class="hyyy_num"></span></td>
-                <td><a onclick="load_data('rhyy');" href="javascript:;">日韩</a><span class="rhyy_num"></span></td>
-                <td><a onclick="load_data('omyy');" href="javascript:;">欧美</a><span class="omyy_num"></span></td>
-                <td><a onclick="load_data('qtyy');" href="javascript:;">其他</a><span class="qtyy_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a href="#kfrj">软件</a></td>
-                <td><a onclick="load_data('kfrj');" href="javascript:;">娱乐</a><span class="kfrj_num"></span></td>
-                <td><a onclick="load_data('xtrj');" href="javascript:;">系统</a><span class="xtrj_num"></span></td>
-                <td><a onclick="load_data('wlrj');" href="javascript:;">网络</a><span class="wlrj_num"></span></td>
-                <td><a onclick="load_data('bgrj');" href="javascript:;">办公</a><span class="bgrj_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a href="#mh">文档</a></td>
-                <td><a onclick="load_data('mh');" href="javascript:;">漫画</a><span class="mh_num"></span></td>
-                <td><a onclick="load_data('xs');" href="javascript:;">小说</a><span class="xs_num"></span></td>
-                <td><a onclick="load_data('cbs');" href="javascript:;">出版</a><span class="cbs_num"></span></td>
-                <td><a onclick="load_data('zspx');" href="javascript:;">知识</a><span class="zspx_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a href="#bz">图片</a></td>
-                <td><a onclick="load_data('bz');" href="javascript:;">壁纸</a><span class="bz_num"></span></td>
-                <td><a onclick="load_data('rw');" href="javascript:;">人物</a><span class="rw_num"></span></td>
-                <td><a onclick="load_data('fj');" href="javascript:;">风景</a><span class="fj_num"></span></td>
-                <td><a onclick="load_data('qttp');" href="javascript:;">其他</a><span class="qttp_num"></span></td>
-            </tr>
-            <tr>
-                <td class="tableizer-title"><a href="#qt">其它</a></td>
-                <td><a onclick="load_data('qt');" href="javascript:;">其他</a><span class="qt_num"></span></td>
-                <td><a onclick="load_data('qtrj');" href="javascript:;">其他软件</a><span class="qtrj_num"></span></td>
-                <td><a onclick="load_data('qtwd');" href="javascript:;">其他文档</a><span class="qtwd_num"></span></td>
-            </tr>
-        </tbody>
-    </table>
-    <h2 class="newh2 subtitle">最近更新</h2>
-    <table style="table-layout: fixed;" width="100%" class="GeneratedTable new">
-        <thead>
-            <tr class="tableizer-firstrow">
-                <th width="15%">时间</th>
-                <th width="55%">标题</th>
-                <th width="30%">链接</th>
-            </tr>
-        </thead>
-        <tbody id="newkey"></tbody>
-    </table>
-    <h2 class="toph2 subtitle">置顶推荐</h2>
-    <table style="table-layout: fixed;" width="100%" class="GeneratedTable top">
-        <thead>
-            <tr class="tableizer-firstrow">
-                <th width="40%">标题</th>
-                <th width="20%">链接</th>
-                <th width="40%">理由</th>
-            </tr>
-        </thead>
-        <tbody id="topkey" class="allkey"></tbody>
-    </table>
-    <h2 class="subtitle">资源列表</h2>
-    <table style="table-layout: fixed;" width="100%" class="GeneratedTable list">
-        <thead>
-            <tr class="tableizer-firstrow">
-                <th width="45%">标题</th>
-                <th width="33%">链接</th>
-                <th width="22%">操作</th>
-            </tr>
-        </thead>
-        <tbody id="keylist" class="allkey"></tbody>
-    </table>
-    <div class="page"></div>
-    <div id="foot" class="center"><p><a target="_blank" href="https://dash.gitcafe.net/?page=about">关于</a></p>
-<p><a target="_blank" href="https://dash.gitcafe.net/?page=contact">发我私信</a> // <a target="_blank" href="https://dash.gitcafe.net/?page=mykey">我的投稿</a> // <a target="_blank" href="https://u.gitcafe.net/assets/img/weixinqr.jpg!/fw/300">打赏小纸条</a> // <a title="点击此处，可清空缓存" style="cursor:help;" onclick="localStorage.clear();alert('缓存已清空');" href="javascript:;">系统缓存</a></p></div>
-
-    <a href="javascript:" id="backtop" class="backtop"></a>
-    <script type="text/javascript" charset="UTF-8" async="" src="https://sdk.51.la/js-sdk-pro.min.js" id="LA_COLLECT"></script><script type="module" src="assets/js/all.js"></script>
-    <script src="https://u.gitcafe.net/assets/js/paper.js"></script>
-    <script>
-        !function (p) { "use strict"; !function (t) { var s = window, e = document, i = p, c = "".concat("https:" === e.location.protocol ? "https://" : "http://", "sdk.51.la/js-sdk-pro.min.js"), n = e.createElement("script"), r = e.getElementsByTagName("script")[0]; n.type = "text/javascript", n.setAttribute("charset", "UTF-8"), n.async = !0, n.src = c, n.id = "LA_COLLECT", i.d = n; var o = function () { s.LA.ids.push(i) }; s.LA ? s.LA.ids && o() : (s.LA = p, s.LA.ids = [], o()), r.parentNode.insertBefore(n, r) }() }({ id: "K3RJodkElC200Vkn", ck: "K3RJodkElC200Vkn" });
-    </script>
+<div id="tab-1" class="list22">
+    <ul>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4211.html" target="_blank"
+                                title="[阿里云盘]宁安如梦 2023 4K/1080P【全38集】[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4211-220-150-0-98a5e99c5b4864b878242.png"
+                    alt="[阿里云盘]宁安如梦 2023 4K/1080P【全38集】[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4211.html" target="_blank"
+                       title="[阿里云盘]宁安如梦 2023 4K/1080P【全38集】[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]宁安如梦
+                    2023 4K/1080P【全38集】[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>宁安如梦 2023
+                    4K/1080P【全集完整版】花絮+付费番外https://pan.xunlei.com/s/VNkNP3q6oIT9x9UGHzotX2xpA1?pwd=2yxu
+                    https://www.alipan.com/s/C9rpsnHQubM https://pan.quark.cn/s/f7dcba9ea883
+                    名称：宁安如梦
+                    4K描述：该剧改编自时镜的同名小说，曾经的姜雪宁无依无靠，因要自保、也因贪婪，她不择手段的谋取权势，处心积虑当上了皇后，却因此践踏了无数真心，与青梅竹马的小侯爷反目。后，曾...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-30</span> <span><i
+                        class="fa fa-eye"></i>1.58 W</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-26.html"
+                            target="_blank">高清版免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-37.html" target="_blank">爱情</a><a
+                            href="https://www.alypw.com/tags-55.html"
+                            target="_blank">古装</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4141.html" target="_blank"
+                                title="[阿里云盘]无所畏惧 (2023)【全40集】4K/1080p 热依扎/王阳 [免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4141-220-150-0-afc9d154eda2c7282eccc.png"
+                    alt="[阿里云盘]无所畏惧 (2023)【全40集】4K/1080p 热依扎/王阳 [免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4141.html" target="_blank"
+                       title="[阿里云盘]无所畏惧 (2023)【全40集】4K/1080p 热依扎/王阳 [免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]无所畏惧
+                    (2023)【全40集】4K/1080p 热依扎/王阳
+                    [免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>无所畏惧 (2023)【全集完整版】4K/1080p 热依扎/王阳&nbsp;https://www.alipan.com/s/hY1ZdauqD1H
+                    https://pan.quark.cn/s/ca13f53ea0d2 导演:&nbsp;赵锦焘&nbsp;/&nbsp;谭嘉言编剧:&nbsp;赵冬苓主演:&nbsp;热依扎&nbsp;/&nbsp;王阳&nbsp;/&nbsp;啜妮&nbsp;/&nbsp;沈羽洁&nbsp;/&nbsp;李煜&nbsp;/&nbsp;更多...类型:&nbsp;剧情制片国家/地...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-30</span> <span><i
+                        class="fa fa-eye"></i>1.12 W</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-26.html"
+                            target="_blank">高清版免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4010.html" target="_blank"
+                                title="[阿里云盘]我要逆风去 2023 【全40集】剧情 爱情 龚俊 钟楚曦[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4010-220-150-0-2f6a7c9b467ee1c2239c7.png"
+                    alt="[阿里云盘]我要逆风去 2023 【全40集】剧情 爱情 龚俊 钟楚曦[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4010.html" target="_blank"
+                       title="[阿里云盘]我要逆风去 2023 【全40集】剧情 爱情 龚俊 钟楚曦[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]我要逆风去
+                    2023 【全40集】剧情 爱情 龚俊
+                    钟楚曦[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>我要逆风去 2023 【全集完整版】https://www.alipan.com/s/n43MPh3qe2Y
+                    https://pan.quark.cn/s/ac23f24eb2d8 导演:&nbsp;赵一龙编剧:&nbsp;未再&nbsp;/&nbsp;秦文主演:&nbsp;龚俊&nbsp;/&nbsp;钟楚曦&nbsp;/&nbsp;吴宣仪&nbsp;/&nbsp;高至霆&nbsp;/&nbsp;魏哲鸣&nbsp;/&nbsp;更多...类型:&nbsp;剧情&nbsp;/&nbsp;爱情制片国家/地区:&nbs...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-30</span> <span><i
+                        class="fa fa-eye"></i>3.37 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-26.html"
+                            target="_blank">高清版免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-37.html" target="_blank">爱情</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4325.html" target="_blank"
+                                title="[阿里云盘]老大夫 小大夫 (2023) 4K/1080P 【更新29】[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4325-220-150-0-5021fb334d06363cc9dcd.png"
+                    alt="[阿里云盘]老大夫 小大夫 (2023) 4K/1080P 【更新29】[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4325.html" target="_blank"
+                       title="[阿里云盘]老大夫 小大夫 (2023) 4K/1080P 【更新29】[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]老大夫
+                    小大夫 (2023) 4K/1080P
+                    【更新29】[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>老大夫 小大夫 (2023) 4K/1080P
+                    【全集完整版】https://www.aliyundrive.com/s/8pih6xdEHmh
+                    https://pan.quark.cn/s/012808f31f99 名称：老大夫 小大夫 (2023) 4K
+                    同步更新中描述：主修临床医学的白诗洲是国家培养的医学定向生，到仙草村做了一名乡村医生；仙草村卫生室老中医李长生几代行医、远近闻名。一老一少两位医生，在一个卫生室展开了中西医大斗法。渐渐地，白诗洲发现，被他轻视的中医虽然短期见效慢，但能够治根，与西医能够形成良好...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-30</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-26.html"
+                        target="_blank">高清版免费在线观看</a><a
+                        href="https://www.alypw.com/tags-27.html"
+                        target="_blank">4K（2160P）</a><a
+                        href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                        href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                        href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a><a
+                        href="https://www.alypw.com/tags-67.html"
+                        target="_blank">夸克网盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/3914.html" target="_blank"
+                                title="[阿里云盘]2023-2024赛季 NBA常规赛 录像回放【更新1129】[免费在线观看][免费下载][夸克网盘]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-3914-220-150-0-fff4e5e84b234cd2d39f5.png"
+                    alt="[阿里云盘]2023-2024赛季 NBA常规赛 录像回放【更新1129】[免费在线观看][免费下载][夸克网盘]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/3914.html" target="_blank"
+                       title="[阿里云盘]2023-2024赛季 NBA常规赛 录像回放【更新1129】[免费在线观看][免费下载][夸克网盘]">[阿里云盘]2023-2024赛季
+                    NBA常规赛 录像回放【更新1129】[免费在线观看][免费下载][夸克网盘]</a></h2>
+                <p>2023-2024赛季 NBA常规赛 录像回放【持续更新】https://www.aliyundrive.com/s/fmnJK6PFTSH
+                    资源标题： 2023-2024赛季 NBA常规赛
+                    录像回放【10月26日】资源描述：凯尔特人vs尼克斯老鹰vs黄蜂奇才vs步行者公牛VS雷霆国王VS爵士活塞VS热火快船VS开拓者篮网VS骑士猛龙VS森林狼鹈鹕VS灰熊独行侠vs马刺火箭vs魔术大小：15G标签：#NBA
+                    #录像回放 #常规赛...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-30.html"
+                                           target="_blank" title="综合视频"><i
+                        class="fa fa-columns"></i>综合视频</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>1.52 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-12.html"
+                            target="_blank">欧美</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4470.html" target="_blank"
+                                title="[阿里云盘]长安诡事传 2023 4KHDR60FPS古装悬疑 任达华 曾梦雪 克拉拉 魏翔[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4470-220-150-0-5385edda4f67b67196ad3.png"
+                    alt="[阿里云盘]长安诡事传 2023 4KHDR60FPS古装悬疑 任达华 曾梦雪 克拉拉 魏翔[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4470.html" target="_blank"
+                       title="[阿里云盘]长安诡事传 2023 4KHDR60FPS古装悬疑 任达华 曾梦雪 克拉拉 魏翔[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]长安诡事传
+                    2023 4KHDR60FPS古装悬疑 任达华 曾梦雪 克拉拉
+                    魏翔[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>长安诡事传 2023 古装悬疑 任达华 曾梦雪 克拉拉
+                    魏翔https://www.aliyundrive.com/s/rYzwvHi37fP
+                    https://pan.quark.cn/s/814aff560d93 名称：长安诡事传 4KHDR60FPS&amp;4KHQ60FPS描述：唐朝之初一场为缓解旱灾而组织的祈雨祭祀，却被有心之人利用，营造出“千首妖”出没的诡案。聪慧过人的死刑犯独孤也因此被圣上任命调查此案，不料却牵扯出更大的阴谋。大小：18.3GB&nbsp;标签：#悬疑
+                    # #古装...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-4.html" target="_blank">电影</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-26.html"
+                        target="_blank">高清版免费在线观看</a><a
+                        href="https://www.alypw.com/tags-27.html"
+                        target="_blank">4K（2160P）</a><a href="https://www.alypw.com/tags-5.html"
+                                                        target="_blank">动作片</a><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                        href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                        href="https://www.alypw.com/tags-43.html" target="_blank">悬疑</a><a
+                        href="https://www.alypw.com/tags-66.html" target="_blank">HDR</a><a
+                        href="https://www.alypw.com/tags-49.html" target="_blank">60帧</a><a
+                        href="https://www.alypw.com/tags-55.html"
+                        target="_blank">古装</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4413.html" target="_blank"
+                                title="[阿里云盘]小满生活 (2023) 秦昊 王鸥 【更新16】共计38集[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4413-220-150-0-ac467642720fc3887e4e9.png"
+                    alt="[阿里云盘]小满生活 (2023) 秦昊 王鸥 【更新16】共计38集[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4413.html" target="_blank"
+                       title="[阿里云盘]小满生活 (2023) 秦昊 王鸥 【更新16】共计38集[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]小满生活
+                    (2023) 秦昊 王鸥
+                    【更新16】共计38集[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>小满生活 (2023) 秦昊 王鸥 【全集完整版】免费在线观看
+                    共计38集https://www.aliyundrive.com/s/maoQDrpHmuz
+                    https://pan.quark.cn/s/f223e2f1db27 名称：小满生活 (2023) 秦昊 王鸥 共计38集
+                    同步更新中描述：叶逸凡与何嘉如是一对人人称羡的恩爱夫妻，何嘉如意外怀上二胎，舍不得放弃宝宝的两个人，决意换一间价廉物美的新房，可换房的麻烦也接踵而至，就在两人签约新房之时，叶爸突发脑溢血住院，小夫妻毅然决然拿出房款拯救叶爸，好在老人有惊...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-26.html"
+                        target="_blank">高清版免费在线观看</a><a
+                        href="https://www.alypw.com/tags-27.html"
+                        target="_blank">4K（2160P）</a><a
+                        href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                        href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                        href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a><a
+                        href="https://www.alypw.com/tags-37.html"
+                        target="_blank">爱情</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4348.html" target="_blank"
+                                title="[阿里云盘]似火流年 (2023) 共计30集 【更新24】[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4348-220-150-0-b810a8627f7655b0e7055.png"
+                    alt="[阿里云盘]似火流年 (2023) 共计30集 【更新24】[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4348.html" target="_blank"
+                       title="[阿里云盘]似火流年 (2023) 共计30集 【更新24】[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]似火流年
+                    (2023) 共计30集 【更新24】[免费在线观看][免费下载][夸克网盘][国产影视]</a>
+                </h2>
+                <p>似火流年 (2023) 共计30集 【全集完整版】https://www.aliyundrive.com/s/yveVzLgHZZo
+                    https://pan.quark.cn/s/af238015f5c8名称：似火流年 (2023) 共计30集
+                    同步更新中描述：该剧讲述了性格迥异的四位发小徐卫彪、林志华、汪磊、张鹏在时代变革中由于各自不同的选择走上不同道路，昔日挚友站在不同的对立面，最终分道扬镳的故事。标签：#剧情...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-38.html"
+                                           target="_blank" title="追剧更新"><i
+                        class="fa fa-columns"></i>追剧更新</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>2.51 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4469.html" target="_blank"
+                                title="[阿里云盘]一念关山 2023 【更新08】动作古装 刘诗诗 刘宇宁 方逸[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4469-220-150-0-bd696e09bd7f66f1c080d.png"
+                    alt="[阿里云盘]一念关山 2023 【更新08】动作古装 刘诗诗 刘宇宁 方逸[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4469.html" target="_blank"
+                       title="[阿里云盘]一念关山 2023 【更新08】动作古装 刘诗诗 刘宇宁 方逸[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]一念关山
+                    2023 【更新08】动作古装 刘诗诗 刘宇宁
+                    方逸[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>一念关山 2023 【全集完整版】动作古装 刘诗诗 刘宇宁
+                    方逸https://www.alipan.com/s/WL94hfYyHZs https://pan.quark.cn/s/1f456e31ec75
+                    名称：一念关山&nbsp; 4K&nbsp;描述：一念关山的剧情简介 · · · · · ·&nbsp;
+                    新云洗绯色，黄沙漫漫红衣长。江湖行远舟，关山阵阵万重霜。&nbsp;
+                    该剧讲述安国朱衣卫前左使任如意（刘诗诗 饰）因机缘巧合成为梧国迎帝使小分队成员，和梧国六道堂堂主宁远舟（刘宇宁
+                    饰）、风流浪子于十三（...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-38.html"
+                                           target="_blank" title="追剧更新"><i
+                        class="fa fa-columns"></i>追剧更新</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>1.13 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-26.html"
+                            target="_blank">高清版免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-5.html"
+                            target="_blank">动作片</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a><a
+                            href="https://www.alypw.com/tags-55.html"
+                            target="_blank">古装</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4481.html" target="_blank"
+                                title="[阿里云盘]《流人》第三季 【首更2集】（附1+2）4K Apple TV定制剧[免费在线观看][免费下载][夸克网盘][欧美影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4481-220-150-0-7d4858bf0d6f94d6210df.png"
+                    alt="[阿里云盘]《流人》第三季 【首更2集】（附1+2）4K Apple TV定制剧[免费在线观看][免费下载][夸克网盘][欧美影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4481.html" target="_blank"
+                       title="[阿里云盘]《流人》第三季 【首更2集】（附1+2）4K Apple TV定制剧[免费在线观看][免费下载][夸克网盘][欧美影视]">[阿里云盘]《流人》第三季
+                    【首更2集】（附1+2）4K Apple
+                    TV定制剧[免费在线观看][免费下载][夸克网盘][欧美影视]</a></h2>
+                <p>《流人》第三季 （附1+2）4K Apple TV定制剧https://www.aliyundrive.com/s/kcRhYJzJKrd
+                    https://pan.quark.cn/s/68d85bc78c46
+                    名称：流人第三季（2023）/附前二季描述：加里·奥德曼、杰克·劳登、克里斯汀·斯科特·托马斯主演的高分英剧#流人#第三季今日上线Apple
+                    TV+，共6集。第三季改编自原著系列中的第三本《Real
+                    Tigers》。伊斯坦布尔的一名多情联络员威胁要曝光伦敦方面隐瞒的一个军情五处秘密。当Jackson
+                    Lam...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-6.html"
+                                           target="_blank" title="欧美影视"><i
+                        class="fa fa-columns"></i>欧美影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-12.html" target="_blank">欧美</a><a
+                        href="https://www.alypw.com/tags-26.html"
+                        target="_blank">高清版免费在线观看</a><a
+                        href="https://www.alypw.com/tags-27.html"
+                        target="_blank">4K（2160P）</a><a
+                        href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                        href="https://www.alypw.com/tags-5.html" target="_blank">动作片</a><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-39.html" target="_blank">惊悚</a><a
+                        href="https://www.alypw.com/tags-38.html" target="_blank">犯罪</a><a
+                        href="https://www.alypw.com/tags-2.html" target="_blank">美剧</a></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4425.html" target="_blank"
+                                title="[阿里云盘]对你不止是喜欢 (2023) 【更新10】共计24集[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4425-220-150-0-19c3340ca9cf55e37ff15.png"
+                    alt="[阿里云盘]对你不止是喜欢 (2023) 【更新10】共计24集[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4425.html" target="_blank"
+                       title="[阿里云盘]对你不止是喜欢 (2023) 【更新10】共计24集[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]对你不止是喜欢
+                    (2023) 【更新10】共计24集[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>对你不止是喜欢 (2023) 【全集完整版】共计24集https://www.alipan.com/s/m35REZdE4fZ
+                    https://pan.quark.cn/s/a772519e2c3e 名称：对你不止是喜欢 (2023) 共计24集
+                    同步更新中描述：改编自晋江文学城陌言川同名小说《对你不止是喜欢》。&nbsp;&nbsp;
+                    讲述傲娇制片人唐域（魏哲鸣 饰）和鬼马新人编剧唐馨（黄日莹
+                    饰）的暗恋故事。当一场旷日持久的暗恋遇上阴差阳错的甜蜜相处，在小说和电影行业工作的他们如何开启爱情角力？禁欲系冷面总裁如...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-38.html"
+                                           target="_blank" title="追剧更新"><i
+                        class="fa fa-columns"></i>追剧更新</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                        href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                        href="https://www.alypw.com/tags-37.html" target="_blank">爱情</a><a
+                        href="https://www.alypw.com/tags-21.html"
+                        target="_blank">连续剧</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4345.html" target="_blank"
+                                title="[阿里云盘]新闻女王 新聞女王 (2023) 港剧 国粤双语 【更新15】[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4345-220-150-0-37d9797a8c0117847ca1a.png"
+                    alt="[阿里云盘]新闻女王 新聞女王 (2023) 港剧 国粤双语 【更新15】[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4345.html" target="_blank"
+                       title="[阿里云盘]新闻女王 新聞女王 (2023) 港剧 国粤双语 【更新15】[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]新闻女王
+                    新聞女王 (2023) 港剧 国粤双语
+                    【更新15】[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>新闻女王 新聞女王 (2023) 港剧 国粤双语
+                    【全集完整版】https://www.aliyundrive.com/s/wL3E6zViywM
+                    https://pan.quark.cn/s/036f3baff813 名称：新闻女王 新聞女王 (2023) 港剧 国粤双语
+                    同步更新中描述：收视最高的六点半新闻报道是主播的必争之地。在新闻电视部，资深主播文慧心（佘诗曼饰）和梁景仁（马国明饰）分成两派、平分秋色，前者一番兴风作浪，终攀上管理层之位。黄金时段女主播的空缺，引发连场风暴！早、午、晚不同时段的女主播许诗晴（...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-5.html"
+                                           target="_blank" title="国产影视"><i
+                        class="fa fa-columns"></i>国产影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>3.81 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-30.html"
+                            target="_blank">港台</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4449.html" target="_blank"
+                                title="[阿里云盘]南海归墟 (2023)  【更新05】动作 冒险 【附鬼吹灯全系列】[免费在线观看][免费下载][夸克网盘][国产影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4449-220-150-0-875e54f947c54fd12b33c.png"
+                    alt="[阿里云盘]南海归墟 (2023)  【更新05】动作 冒险 【附鬼吹灯全系列】[免费在线观看][免费下载][夸克网盘][国产影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4449.html" target="_blank"
+                       title="[阿里云盘]南海归墟 (2023)  【更新05】动作 冒险 【附鬼吹灯全系列】[免费在线观看][免费下载][夸克网盘][国产影视]">[阿里云盘]南海归墟
+                    (2023) 【更新05】动作 冒险
+                    【附鬼吹灯全系列】[免费在线观看][免费下载][夸克网盘][国产影视]</a></h2>
+                <p>南海归墟 (2023)&nbsp; 【全集完整版】动作 冒险
+                    【附鬼吹灯全系列】https://www.alipan.com/s/453dA2fm9xd
+                    https://pan.quark.cn/s/c1a9405119a7 名称：南海归墟 (2023)&nbsp; 动作 冒险
+                    共计16集描述：讲述“铁三角”胡八一（潘粤明 饰）、Shirley杨（张雨绮 饰）、王胖子（姜超
+                    饰）再次重聚，启程前往南海，在风暴不断、海难频发的珊瑚螺旋海域展开了一段探寻归墟之国、寻找秦王照骨镜的惊险旅程。&nbsp;&nbsp;
+                    该剧...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-38.html"
+                                           target="_blank" title="追剧更新"><i
+                        class="fa fa-columns"></i>追剧更新</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>3.31 K</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-33.html"
+                            target="_blank">1080P</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-26.html"
+                            target="_blank">高清版免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                            href="https://www.alypw.com/tags-5.html"
+                            target="_blank">动作片</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-46.html" target="_blank">冒险</a><a
+                            href="https://www.alypw.com/tags-21.html" target="_blank">连续剧</a></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4480.html" target="_blank"
+                                title="[阿里云盘]神秘博士60周年特别篇 (2023)🔥豆瓣9.1分[免费在线观看][免费下载][夸克网盘][欧美影视]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-4480-220-150-0-c07a3795d4716f5781994.png"
+                    alt="[阿里云盘]神秘博士60周年特别篇 (2023)🔥豆瓣9.1分[免费在线观看][免费下载][夸克网盘][欧美影视]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4480.html" target="_blank"
+                       title="[阿里云盘]神秘博士60周年特别篇 (2023)🔥豆瓣9.1分[免费在线观看][免费下载][夸克网盘][欧美影视]">[阿里云盘]神秘博士60周年特别篇
+                    (2023)🔥豆瓣9.1分[免费在线观看][免费下载][夸克网盘][欧美影视]</a></h2>
+                <p>神秘博士60周年特别篇
+                    (2023)🔥豆瓣9.1分https://pan.xunlei.com/s/VNkPDaBXr23BlgBhLlifGfclA1?pwd=q3n9
+                    https://www.aliyundrive.com/s/s3PsCn7CRRmhttps://pan.quark.cn/s/0ee2a40f8f59
+                    名称：神秘博士60周年特别篇 (2023)🔥豆瓣9.1分简介：大卫·坦南特（David
+                    Tennant）和凯瑟琳·泰特（Catherine
+                    Tate）将重返《神秘博士》，英国广播公司（BBC）已...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-6.html"
+                                           target="_blank" title="欧美影视"><i
+                        class="fa fa-columns"></i>欧美影视</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-33.html" target="_blank">1080P</a><a
+                        href="https://www.alypw.com/tags-4.html" target="_blank">电影</a><a
+                        href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                        href="https://www.alypw.com/tags-12.html" target="_blank">欧美</a><a
+                        href="https://www.alypw.com/tags-26.html"
+                        target="_blank">高清版免费在线观看</a><a
+                        href="https://www.alypw.com/tags-48.html" target="_blank">剧情</a><a
+                        href="https://www.alypw.com/tags-5.html" target="_blank">动作片</a><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-46.html" target="_blank">冒险</a><a
+                        href="https://www.alypw.com/tags-8.html" target="_blank">科幻片</a><a
+                        href="https://www.alypw.com/tags-68.html"
+                        target="_blank">迅雷云盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4479.html" target="_blank"
+                                title="[夸克网盘]【爱优腾新出电影1~100部合集】[免费在线观看][免费下载][夸克网盘][影视合集]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/zb_users/theme/qk_teat/include/random/10.jpg"
+                    alt="[夸克网盘]【爱优腾新出电影1~100部合集】[免费在线观看][免费下载][夸克网盘][影视合集]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4479.html" target="_blank"
+                       title="[夸克网盘]【爱优腾新出电影1~100部合集】[免费在线观看][免费下载][夸克网盘][影视合集]">[夸克网盘]【爱优腾新出电影1~100部合集】[免费在线观看][免费下载][夸克网盘][影视合集]</a>
+                </h2>
+                <p>【爱优腾新出电影1~100部合集】https://pan.quark.cn/s/7e56f1fe6c24...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-14.html"
+                                           target="_blank" title="影视合集"><i
+                        class="fa fa-columns"></i>影视合集</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-4.html" target="_blank">电影</a><a
+                        href="https://www.alypw.com/tags-3.html" target="_blank">影视</a><a
+                        href="https://www.alypw.com/tags-28.html" target="_blank">合集</a><a
+                        href="https://www.alypw.com/tags-67.html"
+                        target="_blank">夸克网盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4478.html" target="_blank"
+                                title="[夸克网盘]🎬美国电影学院百部百佳影片【84.9GB】[免费在线观看][免费下载][夸克网盘][影视合集]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/zb_users/theme/qk_teat/include/random/4.jpg"
+                    alt="[夸克网盘]🎬美国电影学院百部百佳影片【84.9GB】[免费在线观看][免费下载][夸克网盘][影视合集]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4478.html" target="_blank"
+                       title="[夸克网盘]🎬美国电影学院百部百佳影片【84.9GB】[免费在线观看][免费下载][夸克网盘][影视合集]">[夸克网盘]🎬美国电影学院百部百佳影片【84.9GB】[免费在线观看][免费下载][夸克网盘][影视合集]</a>
+                </h2>
+                <p>🎬美国电影学院百部百佳影片【84.9GB】https://pan.quark.cn/s/077969b90008...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-14.html"
+                                           target="_blank" title="影视合集"><i
+                        class="fa fa-columns"></i>影视合集</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-61.html"
+                        target="_blank">免费在线观看</a><a
+                        href="https://www.alypw.com/tags-4.html" target="_blank">电影</a><a
+                        href="https://www.alypw.com/tags-3.html" target="_blank">影视</a><a
+                        href="https://www.alypw.com/tags-28.html" target="_blank">合集</a><a
+                        href="https://www.alypw.com/tags-67.html"
+                        target="_blank">夸克网盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4477.html" target="_blank"
+                                title="[夸克网盘]2023北美票房破亿影片更新合集[免费在线观看][免费下载][夸克网盘][影视合集]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/zb_users/theme/qk_teat/include/random/6.jpg"
+                    alt="[夸克网盘]2023北美票房破亿影片更新合集[免费在线观看][免费下载][夸克网盘][影视合集]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4477.html" target="_blank"
+                       title="[夸克网盘]2023北美票房破亿影片更新合集[免费在线观看][免费下载][夸克网盘][影视合集]">[夸克网盘]2023北美票房破亿影片更新合集[免费在线观看][免费下载][夸克网盘][影视合集]</a>
+                </h2>
+                <p>2023北美票房破亿影片更新合集https://pan.quark.cn/s/3d1ddb35607d...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-14.html"
+                                           target="_blank" title="影视合集"><i
+                        class="fa fa-columns"></i>影视合集</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-67.html" target="_blank">夸克网盘</a><a
+                        href="https://www.alypw.com/tags-3.html" target="_blank">影视</a><a
+                        href="https://www.alypw.com/tags-28.html"
+                        target="_blank">合集</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4476.html" target="_blank"
+                                title="[夸克网盘]🎬2022第75届英国电影学院奖获奖合集【52.5GB】[免费在线观看][免费下载][夸克网盘][影视合集]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/zb_users/theme/qk_teat/include/random/7.jpg"
+                    alt="[夸克网盘]🎬2022第75届英国电影学院奖获奖合集【52.5GB】[免费在线观看][免费下载][夸克网盘][影视合集]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4476.html" target="_blank"
+                       title="[夸克网盘]🎬2022第75届英国电影学院奖获奖合集【52.5GB】[免费在线观看][免费下载][夸克网盘][影视合集]">[夸克网盘]🎬2022第75届英国电影学院奖获奖合集【52.5GB】[免费在线观看][免费下载][夸克网盘][影视合集]</a>
+                </h2>
+                <p>
+                    🎬2022第75届英国电影学院奖获奖合集【52.5GB】https://pan.quark.cn/s/fa40de0a2d42...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-14.html"
+                                           target="_blank" title="影视合集"><i
+                        class="fa fa-columns"></i>影视合集</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-60.html" target="_blank">云盘下载</a><a
+                        href="https://www.alypw.com/tags-3.html" target="_blank">影视</a><a
+                        href="https://www.alypw.com/tags-28.html" target="_blank">合集</a><a
+                        href="https://www.alypw.com/tags-67.html"
+                        target="_blank">夸克网盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/4475.html" target="_blank"
+                                title="[夸克网盘]🎬奥斯卡获奖影片1988-2023【1.42TB】[免费在线观看][免费下载][夸克网盘][影视合集]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/zb_users/theme/qk_teat/include/random/5.jpg"
+                    alt="[夸克网盘]🎬奥斯卡获奖影片1988-2023【1.42TB】[免费在线观看][免费下载][夸克网盘][影视合集]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/4475.html" target="_blank"
+                       title="[夸克网盘]🎬奥斯卡获奖影片1988-2023【1.42TB】[免费在线观看][免费下载][夸克网盘][影视合集]">[夸克网盘]🎬奥斯卡获奖影片1988-2023【1.42TB】[免费在线观看][免费下载][夸克网盘][影视合集]</a>
+                </h2>
+                <p>🎬奥斯卡获奖影片1988-2023【1.42TB】https://pan.quark.cn/s/6e4c2fa871cf...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-14.html"
+                                           target="_blank" title="影视合集"><i
+                        class="fa fa-columns"></i>影视合集</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>99+</span> <span><i
+                        class="fa fa-comments"></i>0</span> <span class="tag"><a
+                        href="https://www.alypw.com/tags-1.html"
+                        target="_blank">阿里云盘网</a><a
+                        href="https://www.alypw.com/tags-40.html" target="_blank">资源分享</a><a
+                        href="https://www.alypw.com/tags-62.html" target="_blank">免费下载</a><a
+                        href="https://www.alypw.com/tags-3.html" target="_blank">影视</a><a
+                        href="https://www.alypw.com/tags-28.html" target="_blank">合集</a><a
+                        href="https://www.alypw.com/tags-67.html"
+                        target="_blank">夸克网盘</a></span></div>
+            </div>
+        </li>
+        <li>
+            <div class="img"><a href="https://www.alypw.com/post/2595.html" target="_blank"
+                                title="[阿里云盘]遮天.2023 .4K.【更新33】【国漫】[免费在线观看][免费下载][夸克网盘][国产动漫]"><span
+                    class="img-box" data-ratio="16:9"><img
+                    src="https://www.alypw.com/thumb/thumb-2595-220-150-0-fb86dd8dba4f644e9e996.png"
+                    alt="[阿里云盘]遮天.2023 .4K.【更新33】【国漫】[免费在线观看][免费下载][夸克网盘][国产动漫]"></span></a>
+            </div>
+            <div class="imgr">
+                <h2><a href="https://www.alypw.com/post/2595.html" target="_blank"
+                       title="[阿里云盘]遮天.2023 .4K.【更新33】【国漫】[免费在线观看][免费下载][夸克网盘][国产动漫]">[阿里云盘]遮天.2023
+                    .4K.【更新33】【国漫】[免费在线观看][免费下载][夸克网盘][国产动漫]</a></h2>
+                <p>[阿里云盘]遮天.2023
+                    .4K.（全集完整版）【国漫】：编自起点白金作者辰东遮天三部曲的第一部：https://www.aliyundrive.com/s/rMFRM6QpGYn
+                    [夸克网盘]遮天.2023
+                    .4K.（全集完整版）【国漫】：编自起点白金作者辰东遮天三部曲的第一部：https://pan.quark.cn/s/4bb6bb96580b
+                    资源标题：遮天&nbsp;
+                    （更新至第3集）资源描述：本作动画改编自起点白金作者辰东遮天三部曲的第一部——遮天。冰冷与黑暗并存的宇宙深处，九具庞大的龙尸拉着一口青铜...</p>
+                <div class="info"><span><a href="https://www.alypw.com/category-38.html"
+                                           target="_blank" title="追剧更新"><i
+                        class="fa fa-columns"></i>追剧更新</a></span> <span><i
+                        class="fa fa-clock-o"></i>2023-11-29</span> <span><i
+                        class="fa fa-eye"></i>25449</span> <span><i class="fa fa-comments"></i>0</span>
+                    <span class="tag"><a href="https://www.alypw.com/tags-1.html"
+                                         target="_blank">阿里云盘网</a><a
+                            href="https://www.alypw.com/tags-40.html"
+                            target="_blank">资源分享</a><a
+                            href="https://www.alypw.com/tags-62.html"
+                            target="_blank">免费下载</a><a
+                            href="https://www.alypw.com/tags-60.html"
+                            target="_blank">云盘下载</a><a
+                            href="https://www.alypw.com/tags-61.html"
+                            target="_blank">免费在线观看</a><a
+                            href="https://www.alypw.com/tags-27.html"
+                            target="_blank">4K（2160P）</a><a
+                            href="https://www.alypw.com/tags-45.html" target="_blank">2023</a><a
+                            href="https://www.alypw.com/tags-7.html" target="_blank">华语</a><a
+                            href="https://www.alypw.com/tags-46.html" target="_blank">冒险</a><a
+                            href="https://www.alypw.com/tags-47.html" target="_blank">奇幻</a><a
+                            href="https://www.alypw.com/tags-63.html" target="_blank">国产</a><a
+                            href="https://www.alypw.com/tags-15.html" target="_blank">动画</a><a
+                            href="https://www.alypw.com/tags-14.html" target="_blank">动漫</a><a
+                            href="https://www.alypw.com/tags-67.html"
+                            target="_blank">夸克网盘</a><a
+                            href="https://www.alypw.com/tags-55.html"
+                            target="_blank">古装</a></span></div>
+            </div>
+        </li>
+    </ul>
+    <div class="more"><a href="https://www.alypw.com/category-2.html" target="_blank"
+                         title="影视资源">更多影视资源的文章&nbsp;&gt;</a></div>
+</div>

@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: 爬虫定时任务
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 如果是镜像中启动无法获取git信息
     strategy:
       fail-fast: false
       matrix:

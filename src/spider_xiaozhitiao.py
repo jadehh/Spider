@@ -8,26 +8,15 @@
 # @Desc     : 阿里小纸条爬虫
 import copy
 import json
-from src.spider import Spider, BeautifulSoup
+from src.chrome_spider import ChromeSpider, BeautifulSoup,requests
 import time
+from src.vod import VodDetail
 
 
-class SpiderXiaoZhiTiao(Spider):
+class SpiderXiaoZhiTiao(ChromeSpider):
     def __init__(self):
         self.home_url = "https://o.gitcafe.net"
         self.categort_list = []
-        self.vod_dic =  {
-            "vod_id": "",
-            "vod_name": "",
-            "vod_pic": "",
-            "type_name": "",
-            "vod_year": "",
-            "vod_area": "",
-            "vod_remarks": "制作人:Jade",
-            "vod_actor": "",
-            "vod_director": "",
-            "vod_content": ""
-        }
         super().__init__()
 
     def get(self):
@@ -62,47 +51,34 @@ class SpiderXiaoZhiTiao(Spider):
                 vod_dic["vod_content"] = vod_info
         return vod_dic
 
-    def init_vod_dic(self,vod_id,vod_name,vod_pic,vod_info,vod_remark,type_name,update_time=None):
-        vod_dic = copy.copy(self.vod_dic)
-        if vod_id:
-            vod_dic["vod_id"] = vod_id
-        if vod_name:
-            vod_dic["vod_name"] = vod_name
-            if update_time:
-                vod_dic["vod_name"] = vod_name  + " 更新时间为:{}".format(update_time)
-        if vod_pic:
-            vod_dic["vod_pic"] = vod_pic
-        if vod_info:
-            vod_dic = self.parase_vod_info(vod_info,vod_dic)
-        if vod_remark:
-            vod_dic["vod_remark"] = vod_remark
-        if type_name:
-            vod_dic["type_name"] = type_name
-        return vod_dic
+
 
     def parase_home_element(self, element):
+        vod_detail = VodDetail()
         ele_list = element.find_all("td")
-        vodId = ele_list[2].find("a").get("href")
+        vod_detail.vod_id = ele_list[2].find("a").get("href")
         update_time = ele_list[0].text
-        vodName = ele_list[1].text.split("】")[-1].split(vodId.split("/")[-1])[0]
-        vodInfo = ele_list[1].get("tooltip").split("|")[-1]
-        typeName = ele_list[1].text.split("【")[-1].split("】")[0]
-        vodPic = self.get_pic(vodName + typeName)
-        vod_dic = self.init_vod_dic(vodId,vodName,vodPic,vodInfo,None,typeName,update_time)
-        if typeName in self.categort_list:
-            return vod_dic
+        vod_detail.vod_name = ele_list[1].text.split("】")[-1].split(vod_detail.vod_id.split("/")[-1])[0]
+        vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
+        vod_detail.type_name = ele_list[1].text.split("【")[-1].split("】")[0]
+        vod_detail.vod_pic = self.get_pic(vod_detail.vod_name + vod_detail.type_name)
+        if vod_detail.type_name in self.categort_list:
+            return vod_detail.to_dict()
         else:
             return None
 
     def parase_category_element(self, element):
+        vod_detail = VodDetail()
         ele_list = element.find_all("td")
-        vodId = ele_list[1].find("a").get("href")
-        vodInfo = ele_list[0].get("tooltip").split("|")[-1]
-        vodName = ele_list[0].text
-        vodPic = self.get_pic(vodName)
-        vod_dic = self.init_vod_dic(vodId,vodName,vodPic,vodInfo,None,None)
-        return vod_dic
+        vod_detail.vod_id = ele_list[1].find("a").get("href")
+        vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
+        vod_detail.vod_name = ele_list[0].text
+        vod_detail.vod_pic = self.get_pic(vod_detail.vod_name)
+        return vod_detail.to_dict()
 
+
+    # def get_pic(self,name):
+    #     return ""
     def getVod(self, elements):
         vod_list = []
         for element in elements:

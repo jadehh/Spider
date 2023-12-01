@@ -1,92 +1,109 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @File     : spider.py
-# @Author   : jade
-# @Date     : 2023/11/29 9:33
-# @Email    : jadehh@1ive.com
-# @Software : Samples
-# @Desc     :
-import time
-
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from difflib import SequenceMatcher  # 导入库
 import re
-from jade import getOperationSystem,JadeLogging
+import json
+import requests
+from lxml import etree
+from abc import abstractmethod, ABCMeta
+from importlib.machinery import SourceFileLoader
 from bs4 import BeautifulSoup
-class Spider():
-    def __init__(self):
-        if getOperationSystem() == "Windows":
-            chrome_path = r"C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe"
-            driver_path = r"C:\Users\Administrator\Downloads\chromedriver-win64\chromedriver.exe"
-        elif getOperationSystem() == "Linux":
-            chrome_path = "/usr/bin/google-chrome"
-            driver_path = "/usr/bin/chromedriver"
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # 无头
-        options.add_argument("--disbale-gpu")  # 无gpu图形化界面
-        options.add_argument('--no-sandbox')
-        options.binary_location = chrome_path
-        options.binary_location = chrome_path
-        chrome_driver_service = Service(driver_path)
-        self.driver = webdriver.Chrome(options=options,service=chrome_driver_service)
-        self.JadeLog = JadeLogging("/tmp/",Level="INFO")
-        self.driver.implicitly_wait(10)
-    def get(self):
 
+class Spider(metaclass=ABCMeta):
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance:
+            return cls._instance
+        else:
+            cls._instance = super().__new__(cls)
+            return cls._instance
+
+    @abstractmethod
+    def init(self, extend=""):
         pass
 
-    def similarity_str(self,a, b):
-        return SequenceMatcher(None, a, b).ratio()
+    @abstractmethod
+    def homeContent(self, filter):
+        pass
 
-    def remove_special_chars(self,text):
-        pattern = r'[^\w\s]'  # 定义要删除的特殊字符规则
-        result = re.sub(pattern, '', text)  # 使用re.sub函数将特殊字符替换为空格或其他指定内容
-        return result
+    @abstractmethod
+    def homeVideoContent(self):
+        pass
 
+    @abstractmethod
+    def categoryContent(self, tid, pg, filter, extend):
+        pass
 
-    def release(self):
-        self.driver.close()
-        self.JadeLog.release()
+    @abstractmethod
+    def detailContent(self, ids):
+        pass
 
-    def get_pic(self,name):
-        name = self.remove_special_chars(name.split(".")[0])
-        url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
-        try:
-            self.driver.get(url)
-            time.sleep(2)
-            pic_url = self.parase_baidu_pic_serarch(name,self.driver.page_source)
-            return pic_url
-        except Exception as e:
-            self.JadeLog.ERROR("百度图片爬虫失败,{}".format(e))
-            return ""
+    @abstractmethod
+    def searchContent(self, key, quick):
+        pass
 
+    @abstractmethod
+    def playerContent(self, flag, id, vipFlags):
+        pass
 
-    def parase_baidu_pic_serarch(self,name,html):
-        try:
-            soup = BeautifulSoup(html, "lxml")
-            elements = soup.select('.imgitem')
-            max_score = 0
-            max_score_element = None
-            for element in elements:
-                sim_score = self.similarity_str(name + "海报", element.text)
-                if sim_score > max_score:
-                    max_score = sim_score
-                    max_score_element = element
-            url = ""
-            try:
-                if "data-thumburl" in max_score_element.attrs.keys():
-                    url = max_score_element.attrs["data-thumburl"]
-                    self.JadeLog.INFO("正在爬虫百度图片,名称为:{},图片地址为:{}".format(name, url))
-                else:
-                    url = max_score_element.select(".rsbox-imgwarp")[0].find("img").attrs["src"]
-                    self.JadeLog.WARNING("正在爬虫百度图片,没有找到原图,名称为:{},图片地址为:{}".format(name, url))
-            except Exception as e:
-                with open("html/baidu_pic_{}.html".format(name), "wb") as f:
-                    f.write(html.encode("utf-8"))
-                self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name, e))
-            return url
-        except Exception as e:
-            with open("html/baidu_pic_{}.html".format(name),"wb") as f:
-                f.write(html.encode("utf-8"))
-            self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name,e))
+    @abstractmethod
+    def localProxy(self, param):
+        pass
+
+    @abstractmethod
+    def isVideoFormat(self, url):
+        pass
+
+    @abstractmethod
+    def manualVideoCheck(self):
+        pass
+
+    @abstractmethod
+    def getName(self):
+        pass
+
+    def getDependence(self):
+        return []
+
+    def setExtendInfo(self, extend):
+        self.extend = extend
+
+    def regStr(self, src, reg, group=1):
+        m = re.search(reg, src)
+        src = ''
+        if m:
+            src = m.group(group)
+        return src
+
+    def str2json(self, str):
+        return json.loads(str)
+
+    def cleanText(self, src):
+        clean = re.sub('[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]', '', src)
+        return clean
+
+    def fetch(self, url, headers={}, cookies=""):
+        rsp = requests.get(url, headers=headers, cookies=cookies)
+        rsp.encoding = 'utf-8'
+        return rsp
+
+    def post(self, url, data, headers={}, cookies={}):
+        rsp = requests.post(url, data=data, headers=headers, cookies=cookies)
+        rsp.encoding = 'utf-8'
+        return rsp
+
+    def postJson(self, url, json, headers={}, cookies={}):
+        rsp = requests.post(url, json=json, headers=headers, cookies=cookies)
+        rsp.encoding = 'utf-8'
+        return rsp
+
+    def html(self, content):
+        return etree.HTML(content)
+
+    def xpText(self, root, expr):
+        ele = root.xpath(expr)
+        if len(ele) == 0:
+            return ''
+        else:
+            return ele[0]
+
+    def loadModule(self, name, fileName):
+        return SourceFileLoader(name, fileName).load_module()
