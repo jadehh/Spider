@@ -62,6 +62,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
         vod_detail.type_name = ele_list[1].text.split("【")[-1].split("】")[0]
         vod_detail.vod_pic = self.get_pic(vod_detail.vod_name + vod_detail.type_name)
+        vod_detail.vod_remarks = update_time
         if vod_detail.type_name in self.categort_list:
             return vod_detail.to_dict()
         else:
