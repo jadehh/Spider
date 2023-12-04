@@ -60,7 +60,7 @@ class ChromeSpider():
             return pic_url
         except Exception as e:
             self.JadeLog.ERROR("百度图片爬虫失败,{}".format(e))
-            return ""
+            return "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py/jpg/ali.jpg"
 
 
     def parase_baidu_pic_serarch(self,name,html):
