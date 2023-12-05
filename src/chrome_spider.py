@@ -53,6 +53,7 @@ class ChromeSpider():
     def get_pic(self,name):
         name = self.remove_special_chars(name.split(".")[0])
         url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
+        pic_url = "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py/jpg/ali.jpg"
         try:
             self.driver.get(url)
             time.sleep(2)
@@ -60,7 +61,7 @@ class ChromeSpider():
             return pic_url
         except Exception as e:
             self.JadeLog.ERROR("百度图片爬虫失败,{}".format(e))
-            return "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py/jpg/ali.jpg"
+            return pic_url
 
 
     def parase_baidu_pic_serarch(self,name,html):
@@ -74,7 +75,7 @@ class ChromeSpider():
                 if sim_score > max_score:
                     max_score = sim_score
                     max_score_element = element
-            url = ""
+            url = "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py/jpg/ali.jpg"
             try:
                 if "data-thumburl" in max_score_element.attrs.keys():
                     url = max_score_element.attrs["data-thumburl"]
@@ -86,8 +87,8 @@ class ChromeSpider():
                 with open("html/baidu_pic_{}.html".format(name), "wb") as f:
                     f.write(html.encode("utf-8"))
                 self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name, e))
-            return url
         except Exception as e:
             with open("html/baidu_pic_{}.html".format(name),"wb") as f:
                 f.write(html.encode("utf-8"))
             self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name,e))
+        return url
