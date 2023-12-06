@@ -120,7 +120,7 @@ class ChromeSpider():
 
 
 
-    def get_douban_vod_short_search(self, key):
+    def douban_search(self, key):
         url = "{}/search/?query={}".format(self.douban_home_url, key)
         headers = copy.copy(self.header)
         headers["Host"] = "m.douban.com"
@@ -130,9 +130,9 @@ class ChromeSpider():
             vod_list = self.parseVodListFromSoup(soup)
             return vod_list
         else:
-            #self.JadeLog.ERROR("豆瓣爬虫搜索失败,准备重新爬虫")
+            self.JadeLog.ERROR("豆瓣爬虫搜索失败,准备重新爬虫")
             time.sleep(2)
-            return self.get_douban_vod_short_search(key)
+            return self.douban_search(key)
     def paraseVodDetailFromSoup(self, soup):
         vod_detail = VodDetail()
         info_list = soup.find('div', attrs={'id': "info"}).text.split("\n")
@@ -157,7 +157,7 @@ class ChromeSpider():
         vod_detail.vod_remarks = "评分:{}".format(dic["aggregateRating"]["ratingValue"])
         return vod_detail
 
-    def get_douban_vod_detail(self, v_id):
+    def douban_detail(self, v_id):
         split_list = v_id.split("/")
         type_id = split_list[1]
         tid = "/" + "/".join(split_list[2:])
@@ -176,22 +176,22 @@ class ChromeSpider():
             soup = BeautifulSoup(rsp.text, "lxml")
             vod_detail = self.paraseVodDetailFromSoup(soup)
         else:
-            #self.JadeLog.ERROR("豆瓣爬虫详情失败,准备重新爬虫")
+            self.JadeLog.ERROR("豆瓣爬虫详情失败,准备重新爬虫")
             time.sleep(2)
-            return self.get_douban_vod_detail(v_id)
+            return self.douban_detail(v_id)
         return vod_detail
 
 
     def get_douban_vod_detail_by_name(self,name):
         self.JadeLog.INFO("正在进行豆瓣爬虫,名称为:{}".format(name), True)
         try:
-            vod_short_list = self.get_douban_vod_short_search(name)
+            vod_short_list = self.douban_search(name)
             if len(vod_short_list) > 0:
-                vod_detail = self.get_douban_vod_detail(vod_short_list[0].vod_id)
+                vod_detail = self.douban_detail(vod_short_list[0].vod_id)
                 return vod_detail
             else:
-                #self.JadeLog.ERROR("名称为:{},豆瓣爬虫失败".format(name))
+                self.JadeLog.ERROR("名称为:{},豆瓣爬虫失败".format(name))
                 return None
         except Exception as e:
-            #self.JadeLog.ERROR("豆瓣爬虫失败,失败原因为:{}".format(e))
+            self.JadeLog.ERROR("豆瓣爬虫失败,失败原因为:{}".format(e))
             return self.get_douban_vod_detail_by_name(name)
