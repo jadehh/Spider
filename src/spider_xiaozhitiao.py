@@ -61,7 +61,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail.vod_name = ele_list[1].text.split("】")[-1].split(vod_detail.vod_id.split("/")[-1])[0]
         vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
         vod_detail.type_name = ele_list[1].text.split("【")[-1].split("】")[0]
-        vod_detail.vod_pic = self.get_pic(vod_detail.vod_name + vod_detail.type_name)
+        vod_detail.vod_pic = self.get_pic_by_baidu(vod_detail.vod_name + vod_detail.type_name)
         vod_detail.vod_remarks = update_time
         if vod_detail.type_name in self.categort_list:
             return vod_detail.to_dict()
@@ -74,7 +74,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail.vod_id = ele_list[1].find("a").get("href")
         vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
         vod_detail.vod_name = ele_list[0].text
-        vod_detail.vod_pic = self.get_pic(vod_detail.vod_name)
+        vod_detail.vod_pic = self.get_pic_by_baidu(vod_detail.vod_name)
         return vod_detail.to_dict()
 
 

@@ -50,7 +50,7 @@ class ChromeSpider():
         self.driver.close()
         self.JadeLog.release()
 
-    def get_pic(self,name):
+    def get_pic_by_baidu(self,name):
         name = self.remove_special_chars(name.split(".")[0])
         url = "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1701236441873_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&dyTabStr=MCwxLDMsMiw0LDYsNSw3LDgsOQ%3D%3D&ie=utf-8&sid=&word={}".format(name)
         pic_url = "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py/jpg/ali.jpg"
@@ -63,6 +63,32 @@ class ChromeSpider():
             self.JadeLog.ERROR("百度图片爬虫失败,{}".format(e))
             return pic_url
 
+    def get_vod_by_douban(self,name):
+        url = "https://m.douban.com/search/?query={}".format(key)
+        self.logger.info("搜索url地址为:{}".format(url))
+        headers = {"Host": "frodo.douban.com",
+                  "Connection": "Keep-Alive",
+                  "Referer": "https://servicewechat.com/wx2f9b06c1de1ccfca/84/page-frame.html",
+                  "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36 MicroMessenger/7.0.9.501 NetType/WIFI MiniProgramEnv/Windows WindowsWechat"
+                  }
+        headers["Host"] = "m.douban.com"
+        rsp = requests.get(url,headers=headers)
+        vod_list = self.parase_douban_vod_search(rsp)
+        return vod_list[0]
+
+    def parase_douban_vod_search(self,rsp):
+        soup = BeautifulSoup(rsp.text,"lxml")
+        elements = soup.find_all("li")[1:-2]
+        vod_list = []
+        for element in elements:
+            vod_short = VodShort()
+            vod_short.vod_id = element.find("a").attrs["href"]
+            vod_short.vod_pic = element.find("img").attrs["src"]
+            span_elements = element.find_all("span")
+            vod_short.vod_name = span_elements[0].text
+            vod_short.vod_remarks = "评分:{}".format(span_elements[-1].text)
+            vod_list.append(vod_short.to_dict())
+        return vod_list
 
     def parase_baidu_pic_serarch(self,name,html):
         try:
