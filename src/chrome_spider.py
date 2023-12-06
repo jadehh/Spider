@@ -102,7 +102,7 @@ class ChromeSpider():
     def parseVodListFromSoup(self, soup):
         elements = soup.find_all("li",{"class":"search-module"})
         vod_list = []
-        other_type_list = ["小组"]
+        other_type_list = ["小组","游戏"]
         for element in elements:
             type = element.find("span",{"class":"search-results-modules-name"}).text
             if type not in other_type_list:
