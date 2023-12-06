@@ -8,7 +8,7 @@
 # @Desc     :
 from bs4 import BeautifulSoup
 from difflib import SequenceMatcher  # 导入库
-
+import re
 def test_xiaozhitiao_spider():
     from src.spider_xiaozhitiao import SpiderXiaoZhiTiao
     spider = SpiderXiaoZhiTiao()

@@ -11,7 +11,7 @@ import json
 from src.chrome_spider import ChromeSpider, BeautifulSoup,requests
 import time
 from src.vod import VodDetail
-
+import re
 
 class SpiderXiaoZhiTiao(ChromeSpider):
     def __init__(self):
@@ -56,25 +56,71 @@ class SpiderXiaoZhiTiao(ChromeSpider):
     def parase_home_element(self, element):
         vod_detail = VodDetail()
         ele_list = element.find_all("td")
-        vod_detail.vod_id = ele_list[2].find("a").get("href")
         update_time = ele_list[0].text
-        vod_detail.vod_name = ele_list[1].text.split("】")[-1].split(vod_detail.vod_id.split("/")[-1])[0]
-        vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
-        vod_detail.type_name = ele_list[1].text.split("【")[-1].split("】")[0]
-        vod_detail.vod_pic = self.get_pic_by_baidu(vod_detail.vod_name + vod_detail.type_name)
-        vod_detail.vod_remarks = update_time
-        if vod_detail.type_name in self.categort_list:
+        vod_id = ele_list[2].find("a").get("href")
+        name = self.format_key(ele_list[1].text.split("】")[-1].split(vod_id)[0])
+        type_name = ele_list[1].text.split("【")[-1].split("】")[0]
+        vod_douban_detail = self.get_douban_vod_detail_by_name(name)
+        if vod_douban_detail:
+            vod_detail = vod_douban_detail
+        else:
+            vod_detail.vod_name = name
+            vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
+            vod_detail.type_name = type_name
+            vod_detail.vod_remarks = update_time
+        vod_detail.vod_id = vod_id
+        if type_name in self.categort_list:
             return vod_detail.to_dict()
         else:
             return None
 
+    def is_letter(self,char):
+        return char.isalpha()
+
+    def is_letter(self,char):
+        pattern = r'[a-zA-Z]'
+        matcher = re.match(pattern, char)
+        if matcher:
+            return True
+        else:
+            return False
+
+    def format_key(self,key):
+        key_list = ["4k", "2023", "4K","完结","惊悚","犯罪","恐怖","悬疑","-₂","韩国","美国","喜剧","动作","高码",
+                    "-.","合集","无水印","〖〗","大电影","电影","1080p₂","丨","附系列","","t3460帧率版本","双语","正式版",
+                    "国印","持续更新","简日","最新","国漫","1080p","要q","英语","启蒙"]
+        new_key = key.lower()
+        pattern = r'\d+'
+        for key_work in key_list:
+            if key_work in new_key:
+                new_key = new_key.replace(key_work, "")
+
+        if "@" in new_key:
+            new_key = new_key.split("@")[0]
+        if " " in new_key:
+            new_key = new_key.split(" ")[0]
+        if "-" in new_key:
+            new_key = new_key.split("-")[0]
+        if "." in new_key:
+            new_key = new_key.split(".")[0]
+        if "全" in new_key:
+            new_key = new_key.split("全")[0]
+        if len(new_key) > 1:
+            if self.is_letter(new_key[0]) is True and self.is_letter(new_key[1]) is False:
+                new_key = new_key[1:]
+        return new_key
+
     def parase_category_element(self, element):
         vod_detail = VodDetail()
         ele_list = element.find_all("td")
+        name = self.format_key(ele_list[0].text)
+        vod_douban_detail = self.get_douban_vod_detail_by_name(name)
+        if vod_douban_detail:
+            vod_detail = vod_douban_detail
+        else:
+            vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
+        vod_detail.vod_name = name
         vod_detail.vod_id = ele_list[1].find("a").get("href")
-        vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
-        vod_detail.vod_name = ele_list[0].text
-        vod_detail.vod_pic = self.get_pic_by_baidu(vod_detail.vod_name)
         return vod_detail.to_dict()
 
 
