@@ -168,23 +168,28 @@ class ChromeSpider():
                 self.index = self.index + 1
                 try:
                     search_json = search_rsp.json()
-                    search_url = api_url + "/" + "/".join(search_json["items"][0]["target"]["uri"].split("/")[-2:])
-                    params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
-                    headers = {
-                        'User-Agent': choice(self._user_agents),
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None,
-                        'referer': None}
-                    detail_rsp = self.session.get(search_url, params=params, headers=headers, verify=False, timeout=20,
-                                                  allow_redirects=True, stream=False)
-
-                    if detail_rsp.status_code == 200:
-                        self.index = self.index + 1
-                        detail_json = detail_rsp.json()
-                        vodDetail = self.paraseVodDetailFromSoup(detail_json)
-                        self.JadeLog.INFO("豆瓣爬虫成功,搜索名称为:{}".format(key), True)
-                        return vodDetail
+                    items = search_json["items"]
+                    if len(items) == 0:
+                        self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "没有搜索到该名称"))
                     else:
-                        self.JadeLog.ERROR("豆瓣详情失败,名称为:{}".format(key, detail_rsp.text))
+                        search_url = api_url + "/" + "/".join(items[0]["target"]["uri"].split("/")[-2:])
+                        params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
+                        headers = {
+                            'User-Agent': choice(self._user_agents),
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None,
+                            'referer': None}
+                        detail_rsp = self.session.get(search_url, params=params, headers=headers, verify=False,
+                                                      timeout=20,
+                                                      allow_redirects=True, stream=False)
+
+                        if detail_rsp.status_code == 200:
+                            self.index = self.index + 1
+                            detail_json = detail_rsp.json()
+                            vodDetail = self.paraseVodDetailFromSoup(detail_json)
+                            self.JadeLog.INFO("豆瓣爬虫成功,搜索名称为:{}".format(key), True)
+                            return vodDetail
+                        else:
+                            self.JadeLog.ERROR("豆瓣详情失败,名称为:{}".format(key, detail_rsp.text))
                 except Exception as e:
                     self.JadeLog.ERROR("豆瓣获取详情失败,名称为:{},失败原因为:{}".format(key, e))
             else:
