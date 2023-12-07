@@ -167,6 +167,9 @@ class ChromeSpider():
                 search_json = search_rsp.json()
                 search_url = api_url + "/" + "/".join(search_json["items"][-1]["target"]["uri"].split("/")[-2:])
                 params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
+                headers = {
+                    'User-Agent': choice(self._user_agents),
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
                 detail_rsp = self.session.get(search_url, params=params, headers=headers,verify=False,timeout=20,allow_redirects=True,stream=False)
                 self.index = self.index + 1
                 if detail_rsp.status_code == 200:
