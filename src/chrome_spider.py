@@ -47,7 +47,7 @@ class ChromeSpider():
         self.JadeLog = JadeLogging("/tmp/",Level="INFO")
         self.driver.implicitly_wait(10)
         self.session = requests.session()
-        self.index = 0
+        self.index = 1
         self._user_agents = [
         "api-client/1 com.douban.frodo/7.22.0.beta9(231) Android/23 product/Mate 40 vendor/HUAWEI model/Mate 40 brand/HUAWEI  rom/android  network/wifi  platform/AndroidPad"
         "api-client/1 com.douban.frodo/7.18.0(230) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi  platform/mobile nd/1",
@@ -150,26 +150,25 @@ class ChromeSpider():
 
 
     def getDoubanDetail(self, key):
-        time.sleep(20)
-        self.index = self.index + 1
+        time.sleep(5)
         self.JadeLog.INFO("准备开始豆瓣爬虫,搜索名称为:{},次数为:{}".format(key,self.index),True)
         api_url = "https://frodo.douban.com/api/v2"
         _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
-        url = api_url + "/search/weixin"
+        url = api_url + "/search/movie"
         ts = datetime.strftime(datetime.now(), '%Y%m%d')
         params = {'_sig': self.sign(url, ts), '_ts': ts, 'apiKey': _api_key,
                   'count': 1, 'os_rom': 'android', 'q': key, 'start': 0}
         headers = {
             'User-Agent': choice(self._user_agents),
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
-        # vod_list = self.douban_search(key)
         try:
             search_rsp = self.session.get(url, params=params, headers=headers, verify=False, timeout=20,
                                           allow_redirects=True, stream=False)
             if search_rsp.status_code == 200:
+                self.index = self.index + 1
                 try:
                     search_json = search_rsp.json()
-                    search_url = api_url + "/" + "/".join(search_json["items"][-1]["target"]["uri"].split("/")[-2:])
+                    search_url = api_url + "/" + "/".join(search_json["items"][0]["target"]["uri"].split("/")[-2:])
                     params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
                     headers = {
                         'User-Agent': choice(self._user_agents),
@@ -177,8 +176,9 @@ class ChromeSpider():
                         'referer': None}
                     detail_rsp = self.session.get(search_url, params=params, headers=headers, verify=False, timeout=20,
                                                   allow_redirects=True, stream=False)
-                    self.index = self.index + 1
+
                     if detail_rsp.status_code == 200:
+                        self.index = self.index + 1
                         detail_json = detail_rsp.json()
                         vodDetail = self.paraseVodDetailFromSoup(detail_json)
                         self.JadeLog.INFO("豆瓣爬虫成功,搜索名称为:{}".format(key), True)
@@ -190,7 +190,7 @@ class ChromeSpider():
             else:
                 if "search_access_rate_limit" in search_rsp.text:
                     self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
-                    time.sleep(60)
+                    time.sleep(60*5) ## 五分钟后重试
                     return self.getDoubanDetail(key)
                 else:
                     self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
