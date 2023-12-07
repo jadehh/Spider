@@ -26,6 +26,8 @@ import hashlib
 from urllib3.exceptions import InsecureRequestWarning
 import urllib3
 urllib3.disable_warnings(InsecureRequestWarning)
+from random import choice
+
 class ChromeSpider():
     def __init__(self):
         if getOperationSystem() == "Windows":
@@ -46,6 +48,11 @@ class ChromeSpider():
         self.driver.implicitly_wait(10)
         self.session = requests.session()
         self.index = 0
+        self._user_agents = [
+        "api-client/1 com.douban.frodo/7.22.0.beta9(231) Android/23 product/Mate 40 vendor/HUAWEI model/Mate 40 brand/HUAWEI  rom/android  network/wifi  platform/AndroidPad"
+        "api-client/1 com.douban.frodo/7.18.0(230) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi  platform/mobile nd/1",
+        "api-client/1 com.douban.frodo/7.1.0(205) Android/29 product/perseus vendor/Xiaomi model/Mi MIX 3  rom/miui6  network/wifi  platform/mobile nd/1",
+        "api-client/1 com.douban.frodo/7.3.0(207) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi platform/mobile nd/1"]
 
     def get(self):
 
@@ -151,7 +158,7 @@ class ChromeSpider():
         params = {'_sig': self.sign(url, ts), '_ts': ts, 'apiKey': _api_key,
                   'count': 1, 'os_rom': 'android', 'q': '王牌对王牌', 'start': 0}
         headers = {
-            'User-Agent': 'api-client/1 com.douban.frodo/7.3.0(207) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi platform/mobile nd/1',
+            'User-Agent': choice(self._user_agents),
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
         # vod_list = self.douban_search(key)
         search_rsp = self.session.get(url,params=params,headers=headers,verify=False,timeout=20,allow_redirects=True,stream=False)
