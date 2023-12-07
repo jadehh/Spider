@@ -19,11 +19,10 @@ jobs:
           ref: main
           fetch-depth: 0  # 显示所有提交的日志
           token: ${{ secrets.GH_PAT }}
-      - name: 时钟同步
-        run: |
-          sudo apt-get update && sudo apt-get install ntpdate
-          timedatectl set-timezone Asia/Shanghai
-          ntpdate ntp1.aliyun.com
+      - name: 时区设置
+        uses: szenius/set-timezone@v1.0 # 设置执行环境的时区
+        with:
+          timezoneLinux: "Asia/Shanghai"
       - name: 查看谷歌环境
         run: |
           ls /usr/bin/google-chrome -l
