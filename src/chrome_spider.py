@@ -149,13 +149,13 @@ class ChromeSpider():
             'User-Agent': 'api-client/1 com.douban.frodo/7.3.0(207) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi platform/mobile nd/1',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
         # vod_list = self.douban_search(key)
-        search_rsp = self.session.get(url,params=params,headers=headers)
+        search_rsp = self.session.get(url,params=params,headers=headers,verify=False,timeout=20,allow_redirects=True,stream=False)
         if search_rsp.status_code == 200:
             try:
                 search_json = search_rsp.json()
                 search_url = api_url + "/" + "/".join(search_json["items"][-1]["target"]["uri"].split("/")[-2:])
                 params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
-                detail_rsp = self.session.get(search_url, params=params, headers=headers)
+                detail_rsp = self.session.get(search_url, params=params, headers=headers,verify=False,timeout=20,allow_redirects=True,stream=False)
                 if detail_rsp.status_code == 200:
                     detail_json = detail_rsp.json()
                     vodDetail = self.paraseVodDetailFromSoup(detail_json)
