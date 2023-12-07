@@ -165,7 +165,6 @@ class ChromeSpider():
 
 
     def getDoubanShort(self,key):
-        time.sleep(3)
         self.JadeLog.INFO("开始豆瓣搜索爬虫,搜索名称为:{},次数为:{}".format(key, self.index), True)
         api_url = "https://frodo.douban.com/api/v2"
         _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
@@ -195,7 +194,6 @@ class ChromeSpider():
             self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, e))
 
     def getDoubanDetail(self, key):
-        time.sleep(3)
         api_url = "https://frodo.douban.com/api/v2"
         _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
         vod_short = self.getDoubanShort(key)
