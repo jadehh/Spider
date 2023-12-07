@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: 时钟同步
         run: |
-          apt-get update && apt-get install ntpdate
+          sudo apt-get update && sudo apt-get install ntpdate
           timedatectl set-timezone Asia/Shanghai
           ntpdate ntp1.aliyun.com
       - name: 查看谷歌环境
