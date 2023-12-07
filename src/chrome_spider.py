@@ -141,7 +141,7 @@ class ChromeSpider():
         ).decode()
 
     def getDoubanDetail(self, key):
-        time.sleep(10)
+        time.sleep(20)
         self.index = self.index + 1
         self.JadeLog.INFO("准备开始豆瓣爬虫,搜索名称为:{},次数为:{}".format(key,self.index),True)
         api_url = "https://frodo.douban.com/api/v2"
