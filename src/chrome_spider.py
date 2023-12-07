@@ -23,6 +23,9 @@ from urllib import parse
 import base64
 import hmac
 import hashlib
+from urllib3.exceptions import InsecureRequestWarning
+import urllib3
+urllib3.disable_warnings(InsecureRequestWarning)
 class ChromeSpider():
     def __init__(self):
         if getOperationSystem() == "Windows":
