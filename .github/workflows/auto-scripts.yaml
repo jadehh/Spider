@@ -23,6 +23,7 @@ jobs:
         run: |
           ls /usr/bin/google-chrome -l
           ls /usr/bin/chromedriver -l
+          ls /usr/sbin/ntpdate -l
       - name: 安装pip环境
         run: |
           pip install -r requirements.txt

@@ -147,6 +147,8 @@ class ChromeSpider():
             ).digest()
         ).decode()
 
+
+
     def getDoubanDetail(self, key):
         time.sleep(20)
         self.index = self.index + 1
@@ -156,7 +158,7 @@ class ChromeSpider():
         url = api_url + "/search/weixin"
         ts = datetime.strftime(datetime.now(), '%Y%m%d')
         params = {'_sig': self.sign(url, ts), '_ts': ts, 'apiKey': _api_key,
-                  'count': 1, 'os_rom': 'android', 'q': '王牌对王牌', 'start': 0}
+                  'count': 1, 'os_rom': 'android', 'q': key, 'start': 0}
         headers = {
             'User-Agent': choice(self._user_agents),
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
