@@ -137,7 +137,7 @@ class ChromeSpider():
         ).decode()
 
     def getDoubanDetail(self, key):
-        time.sleep(5)
+        time.sleep(10)
         self.JadeLog.INFO("准备开始豆瓣爬虫,搜索名称为:{}".format(key),True)
         api_url = "https://frodo.douban.com/api/v2"
         _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
@@ -168,7 +168,7 @@ class ChromeSpider():
         else:
             if "search_access_rate_limit" in search_rsp.text:
                 self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
-                time.sleep(5)
+                time.sleep(60)
                 return self.getDoubanDetail(key)
             else:
                 self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
