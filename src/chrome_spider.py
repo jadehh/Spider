@@ -187,7 +187,7 @@ class ChromeSpider():
             else:
                 if "search_access_rate_limit" in search_rsp.text:
                     self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
-                    time.sleep(60*10) ## 10分钟后重试
+                    time.sleep(60*1) ## 10分钟后重试
                     return self.getDoubanShort(key)
                 else:
                     self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
