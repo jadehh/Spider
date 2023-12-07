@@ -113,12 +113,12 @@ class ChromeSpider():
             self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name,e))
         return url
 
-    def paraseVodDetailFromSoup(self, dic):
+    def paraseVodDetailFromJson(self, dic):
         vodDetail = VodDetail()
         vodDetail.vod_name = dic["title"]
         vodDetail.vod_year = dic["year"]
         vodDetail.vod_pic = dic["pic"]["large"]
-        vodDetail.vod_remarks = "评分:".format(dic["rating"]["value"])
+        vodDetail.vod_remarks = "评分:{}".format(dic["rating"]["value"])
         vodDetail.vod_content = dic["intro"]
         vodDetail.vod_area = " / ".join(dic["countries"])
         director_list = []
@@ -131,6 +131,21 @@ class ChromeSpider():
         vodDetail.vod_actor = " / ".join(actor_list)
         vodDetail.type_name = " / ".join(dic["genres"])
         return vodDetail
+
+    def paraseVodShortFromJson(self,dic):
+        items = dic["items"]
+        if len(items) > 0:
+            vod_short = VodShort()
+            target = items[0]["target"]
+            vod_short.vod_name = target["title"]
+            vod_short.vod_id = "/" + "/".join(target["uri"].split("/")[-2:])
+            vod_short.vod_pic = target["cover_url"]
+            vod_short.vod_remarks = "评分:{}".format(target["rating"]["value"])
+            return vod_short
+        else:
+            self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "没有搜索到该名称"))
+            return None
+
 
     def sign(self, url: str, ts: int, method='GET') -> str:
         """
@@ -149,9 +164,9 @@ class ChromeSpider():
 
 
 
-    def getDoubanDetail(self, key):
-        time.sleep(5)
-        self.JadeLog.INFO("准备开始豆瓣爬虫,搜索名称为:{},次数为:{}".format(key,self.index),True)
+    def getDoubanShort(self,key):
+        time.sleep(3)
+        self.JadeLog.INFO("开始豆瓣搜索爬虫,搜索名称为:{},次数为:{}".format(key, self.index), True)
         api_url = "https://frodo.douban.com/api/v2"
         _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
         url = api_url + "/search/movie"
@@ -166,39 +181,44 @@ class ChromeSpider():
                                           allow_redirects=True, stream=False)
             if search_rsp.status_code == 200:
                 self.index = self.index + 1
-                try:
-                    search_json = search_rsp.json()
-                    items = search_json["items"]
-                    if len(items) == 0:
-                        self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "没有搜索到该名称"))
-                    else:
-                        search_url = api_url + "/" + "/".join(items[0]["target"]["uri"].split("/")[-2:])
-                        params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
-                        headers = {
-                            'User-Agent': choice(self._user_agents),
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None,
-                            'referer': None}
-                        detail_rsp = self.session.get(search_url, params=params, headers=headers, verify=False,
-                                                      timeout=20,
-                                                      allow_redirects=True, stream=False)
-
-                        if detail_rsp.status_code == 200:
-                            self.index = self.index + 1
-                            detail_json = detail_rsp.json()
-                            vodDetail = self.paraseVodDetailFromSoup(detail_json)
-                            self.JadeLog.INFO("豆瓣爬虫成功,搜索名称为:{}".format(key), True)
-                            return vodDetail
-                        else:
-                            self.JadeLog.ERROR("豆瓣详情失败,名称为:{}".format(key, detail_rsp.text))
-                except Exception as e:
-                    self.JadeLog.ERROR("豆瓣获取详情失败,名称为:{},失败原因为:{}".format(key, e))
+                search_json = search_rsp.json()
+                vod_short = self.paraseVodShortFromJson(search_json)
+                return vod_short
             else:
                 if "search_access_rate_limit" in search_rsp.text:
-                    self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
-                    time.sleep(60*5) ## 五分钟后重试
-                    return self.getDoubanDetail(key)
+                    self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
+                    time.sleep(60*10) ## 10分钟后重试
+                    return self.getDoubanShort(key)
                 else:
-                    self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
+                    self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
         except Exception as e:
-            self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, e))
+            self.JadeLog.ERROR("豆瓣搜索爬虫失败,名称为:{},失败原因为:{}".format(key, e))
+
+    def getDoubanDetail(self, key):
+        time.sleep(3)
+        api_url = "https://frodo.douban.com/api/v2"
+        _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
+        vod_short = self.getDoubanShort(key)
+        if vod_short:
+            search_url = api_url + vod_short.vod_id
+            ts = datetime.strftime(datetime.now(), '%Y%m%d')
+            params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
+            headers = {
+                'User-Agent': choice(self._user_agents),
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None,
+                'referer': None}
+            try:
+                detail_rsp = self.session.get(search_url, params=params, headers=headers, verify=False,
+                                              timeout=20,
+                                              allow_redirects=True, stream=False)
+                if detail_rsp.status_code == 200:
+                    self.index = self.index + 1
+                    detail_json = detail_rsp.json()
+                    vodDetail = self.paraseVodDetailFromJson(detail_json)
+                    self.JadeLog.INFO("豆瓣详情爬虫成功,名称为:{}".format(key), True)
+                    return vodDetail
+                else:
+                    self.JadeLog.ERROR("豆瓣详情爬虫失败,名称为:{}".format(key, detail_rsp.text))
+            except Exception as e:
+                self.JadeLog.ERROR("豆瓣详情爬虫失败,名称为:{},失败原因为:{}".format(key, e))
 
