@@ -132,7 +132,7 @@ class ChromeSpider():
         vodDetail.type_name = " / ".join(dic["genres"])
         return vodDetail
 
-    def paraseVodShortFromJson(self,dic):
+    def paraseVodShortFromJson(self,key,dic):
         items = dic["items"]
         if len(items) > 0:
             vod_short = VodShort()
@@ -182,7 +182,7 @@ class ChromeSpider():
             if search_rsp.status_code == 200:
                 self.index = self.index + 1
                 search_json = search_rsp.json()
-                vod_short = self.paraseVodShortFromJson(search_json)
+                vod_short = self.paraseVodShortFromJson(key,search_json)
                 return vod_short
             else:
                 if "search_access_rate_limit" in search_rsp.text:
