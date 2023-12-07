@@ -18,6 +18,11 @@ import requests
 import copy
 from src.vod import VodDetail,VodShort
 import json
+from datetime import datetime
+from urllib import parse
+import base64
+import hmac
+import hashlib
 class ChromeSpider():
     def __init__(self):
         if getOperationSystem() == "Windows":
@@ -99,99 +104,71 @@ class ChromeSpider():
             self.JadeLog.ERROR("百度图片爬虫失败,名称为:{},失败原因为:{}".format(name,e))
         return url
 
-    def parseVodListFromSoup(self, soup):
-        elements = soup.find_all("li",{"class":"search-module"})
-        vod_list = []
-        other_type_list = ["小组","游戏"]
-        for element in elements:
-            type = element.find("span",{"class":"search-results-modules-name"}).text
-            if type not in other_type_list:
-                vod_short = VodShort()
-                vod_short.vod_id = element.find("a").attrs["href"]
-                vod_short.vod_pic = element.find("img").attrs["src"]
-                vod_short.vod_name = element.find("span",{"class":"subject-title"}).text
-                rating = element.find("p",{"class":"rating"}).text.replace("\n","")
-                if "暂无" in rating:
-                    pass
-                else:
-                    vod_short.vod_remarks = "评分:{}".format(rating)
-                vod_list.append(vod_short)
-        return vod_list
-
-
-
-    def douban_search(self, key):
-        url = "{}/search/?query={}".format(self.douban_home_url, key)
-        headers = copy.copy(self.header)
-        headers["Host"] = "m.douban.com"
-        rsp = requests.get(url, headers=headers,allow_redirects=False)
-        if rsp.status_code == 200:
-            soup = BeautifulSoup(rsp.text, "lxml")
-            vod_list = self.parseVodListFromSoup(soup)
-            return vod_list
-        else:
-            self.JadeLog.ERROR("豆瓣爬虫搜索失败,准备重新爬虫")
-            time.sleep(2)
-            return self.douban_search(key)
-    def paraseVodDetailFromSoup(self, soup):
-        vod_detail = VodDetail()
-        info_list = soup.find('div', attrs={'id': "info"}).text.split("\n")
-        for item in info_list:
-            if "地区" in item:
-                vod_detail.vod_area = item.split(":")[-1]
-        dic = json.loads(soup.find("script", {'type': 'application/ld+json'}).text.replace("\n", ""))
-        vod_detail.vod_id = dic["url"]
-        vod_detail.vod_name = dic["name"]
-        vod_detail.vod_pic = dic["image"]
-        vod_detail.vod_year = dic["datePublished"]
-        actor_list = []
-        for actor_dic in dic["actor"]:
-            actor_list.append(actor_dic["name"].split(" ")[0])
+    def paraseVodDetailFromSoup(self, dic):
+        vodDetail = VodDetail()
+        vodDetail.vod_name = dic["title"]
+        vodDetail.vod_year = dic["year"]
+        vodDetail.vod_pic = dic["pic"]["large"]
+        vodDetail.vod_remarks = "评分:".format(dic["rating"]["value"])
+        vodDetail.vod_content = dic["intro"]
+        vodDetail.vod_area = " / ".join(dic["countries"])
         director_list = []
-        for director_dic in dic["director"]:
-            director_list.append(director_dic["name"].split(" ")[0])
-        vod_detail.type_name = " / ".join(dic["genre"])
-        vod_detail.vod_actor = " / ".join(actor_list)
-        vod_detail.vod_director = " / ".join(director_list)
-        vod_detail.vod_content = dic["description"]
-        vod_detail.vod_remarks = "评分:{}".format(dic["aggregateRating"]["ratingValue"])
-        return vod_detail
+        for director_dic in dic["directors"]:
+            director_list.append(director_dic["name"])
+        actor_list = []
+        for actor_dic in dic["actors"]:
+            actor_list.append(actor_dic["name"])
+        vodDetail.vod_director = " / ".join(director_list)
+        vodDetail.vod_actor = " / ".join(actor_list)
+        vodDetail.type_name = " / ".join(dic["genres"])
+        return vodDetail
 
-    def douban_detail(self, v_id):
-        split_list = v_id.split("/")
-        type_id = split_list[1]
-        tid = "/" + "/".join(split_list[2:])
-        home_url_list = self.douban_home_url.split(".")
-        home_url_list[0] = "https://{}".format(type_id)
-        home_url = ".".join(home_url_list)
-        url = home_url + tid
-        headers = {}
-        headers["Host"] = "movie.douban.com"
-        headers[
-            "Cookie"] = '_vwo_uuid_v2=DC67E58994652304E348D0E1EB30417A8|79da2360b16aba794ae2f050599037c0; ap_v=0,6.0; __yadk_uid=5OCVRPW39vyo5ubib5dVA4mvIjFLOBzR; __utma=30149280.1972142145.1701828581.1701828603.1701828603.1; __utmb=30149280.0.10.1701828603; __utmc=30149280; __utmz=30149280.1701828603.1.1.utmcsr=m.douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; _ga_Y4GN1R87RG=GS1.1.1701828581.1.1.1701828602.0.0.0; __utma=223695111.1972142145.1701828581.1701828603.1701828603.1; __utmb=223695111.0.10.1701828603; __utmc=223695111; __utmz=223695111.1701828603.1.1.utmcsr=m.douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; _pk_id.100001.4cf6=eb516fe88d50a169.1701828603.; _pk_ref.100001.4cf6=%5B%22%22%2C%22%22%2C1701828603%2C%22https%3A%2F%2Fm.douban.com%2F%22%5D; _pk_ses.100001.4cf6=1; _ck_desktop_mode=1; vmode=pc; _ga=GA1.2.1972142145.1701828581; _gid=GA1.2.1067754563.1701828581; ll="118159"; bid=mAFuUX1zgPI'
-        headers[
-            "User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/100.0.4896.77 Mobile/15E148 Safari/604.1"
-        rsp = requests.get(url, headers=headers,allow_redirects=False)
-        if rsp.status_code == 200:
-            soup = BeautifulSoup(rsp.text, "lxml")
-            vod_detail = self.paraseVodDetailFromSoup(soup)
-        else:
-            self.JadeLog.ERROR("豆瓣爬虫详情失败,准备重新爬虫")
-            time.sleep(2)
-            return self.douban_detail(v_id)
-        return vod_detail
+    def sign(self, url: str, ts: int, method='GET') -> str:
+        """
+        签名
+        """
+        _api_secret_key = "bf7dddc7c9cfe6f7"
+        url_path = parse.urlparse(url).path
+        raw_sign = '&'.join([method.upper(), parse.quote(url_path, safe=''), str(ts)])
+        return base64.b64encode(
+            hmac.new(
+                _api_secret_key.encode(),
+                raw_sign.encode(),
+                hashlib.sha1
+            ).digest()
+        ).decode()
 
-
-    def get_douban_vod_detail_by_name(self,name):
-        self.JadeLog.INFO("正在进行豆瓣爬虫,名称为:{}".format(name), True)
-        try:
-            vod_short_list = self.douban_search(name)
-            if len(vod_short_list) > 0:
-                vod_detail = self.douban_detail(vod_short_list[0].vod_id)
-                return vod_detail
+    def getDoubanDetail(self, key):
+        time.sleep(5)
+        self.JadeLog.INFO("准备开始豆瓣爬虫,搜索名称为:{}".format(key),True)
+        api_url = "https://frodo.douban.com/api/v2"
+        _api_key = "0dad551ec0f84ed02907ff5c42e8ec70"
+        url = api_url + "/search/weixin"
+        ts = datetime.strftime(datetime.now(), '%Y%m%d')
+        params = {'_sig': self.sign(url, ts), '_ts': ts, 'apiKey': _api_key,
+                  'count': 1, 'os_rom': 'android', 'q': '王牌对王牌', 'start': 0}
+        headers = {
+            'User-Agent': 'api-client/1 com.douban.frodo/7.3.0(207) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi platform/mobile nd/1',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': None, 'referer': None}
+        # vod_list = self.douban_search(key)
+        search_rsp = requests.get(url, params, headers=headers)
+        if search_rsp.status_code == 200:
+            search_json = search_rsp.json()
+            search_url = api_url + "/" + "/".join(search_json["items"][-1]["target"]["uri"].split("/")[-2:])
+            params = {'_sig': self.sign(search_url, ts), '_ts': ts, 'apiKey': _api_key, 'os_rom': 'android'}
+            detail_rsp = requests.get(search_url, params, headers=headers)
+            if detail_rsp.status_code == 200:
+                detail_json = detail_rsp.json()
+                vodDetail = self.paraseVodDetailFromSoup(detail_json)
+                self.JadeLog.INFO("豆瓣爬虫成功,搜索名称为:{}".format(key), True)
+                return vodDetail
             else:
-                self.JadeLog.ERROR("名称为:{},豆瓣爬虫失败".format(name))
-                return None
-        except Exception as e:
-            self.JadeLog.ERROR("豆瓣爬虫失败,失败原因为:{}".format(e))
-            return self.get_douban_vod_detail_by_name(name)
+                self.JadeLog.ERROR("豆瓣详情失败,名称为:{}".format(key, detail_rsp.text))
+        else:
+            if "search_access_rate_limit" in search_rsp.text:
+                self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, "访问频率太快"))
+                time.sleep(5)
+                return self.getDoubanDetail(key)
+            else:
+                self.JadeLog.ERROR("豆瓣搜索失败,名称为:{},失败原因为:{}".format(key, search_rsp.text))
+

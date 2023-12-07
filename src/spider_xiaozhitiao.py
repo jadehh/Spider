@@ -60,7 +60,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_id = ele_list[2].find("a").get("href")
         name = self.format_key(ele_list[1].text.split("】")[-1].split(vod_id)[0])
         type_name = ele_list[1].text.split("【")[-1].split("】")[0]
-        vod_douban_detail = self.get_douban_vod_detail_by_name(name)
+        vod_douban_detail = self.getDoubanDetail(name)
         if vod_douban_detail:
             vod_detail = vod_douban_detail
         else:
@@ -114,7 +114,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail = VodDetail()
         ele_list = element.find_all("td")
         name = self.format_key(ele_list[0].text)
-        vod_douban_detail = self.get_douban_vod_detail_by_name(name)
+        vod_douban_detail = self.getDoubanDetail(name)
         if vod_douban_detail:
             vod_detail = vod_douban_detail
         else:
