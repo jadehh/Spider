@@ -25,6 +25,23 @@ class VodShort(object):
         for key in list(dic.keys()):
             if key in list(self.to_dict().keys()):
                 setattr(self, key, dic[key])
+
+    def copy(self,vod_detail):
+        dic = self.to_dict()
+        if vod_detail:
+            vod_detail_dic = vod_detail.to_dict()
+            for key in list(dic.keys()):
+                is_need_set = False
+                if len(dic[key]) > 0:
+                    if key == "vod_id" or key == "vod_name":
+                        pass
+                    else:
+                        is_need_set = True
+                else:
+                    is_need_set = True
+                if is_need_set:
+                    setattr(self, key, vod_detail_dic[key])
+
 class VodDetail(VodShort):
     def __init__(self):
         super().__init__()

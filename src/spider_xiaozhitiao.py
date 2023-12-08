@@ -37,9 +37,39 @@ class SpiderXiaoZhiTiao(ChromeSpider):
             "class": classes,
             "list": vod_list
         }
+        xiaozhitiao_json = self.paraseVodDetailByDouban(xiaozhitiao_json)
+
         with open("json/xiaozhitiao.json", "wb") as f:
             f.write(json.dumps(xiaozhitiao_json,ensure_ascii=False,indent=4).encode("utf-8"))
         self.JadeLog.INFO("阿里小纸条JSON文件写入成功", True)
+
+
+
+    def paraseVodDetailByDouban(self,xiaozhitiao_json):
+        classes = xiaozhitiao_json["class"]
+        vod_list = xiaozhitiao_json["list"]
+        new_vod_list = []
+        for vod_detail_dic in vod_list:
+            or_vodetail = VodDetail()
+            or_vodetail.load_dic(vod_detail_dic)
+            vod_detail = self.getDoubanDetail(or_vodetail.vod_name)
+            or_vodetail.copy(vod_detail)
+            new_vod_list.append(or_vodetail.to_dict())
+        xiaozhitiao_json["list"] = new_vod_list
+        new_classes = []
+        for class_dic in classes:
+            type_name = class_dic["type_name"]
+            new_vod_list = []
+            for vod_detail_dic in class_dic["list"]:
+                or_vodetail = VodDetail()
+                or_vodetail.load_dic(vod_detail_dic)
+                vod_detail = self.getDoubanDetail(or_vodetail.vod_name)
+                or_vodetail.copy(vod_detail)
+                new_vod_list.append(or_vodetail.to_dict())
+            new_classes.append({"type_name":type_name,"list":new_vod_list})
+        xiaozhitiao_json["class"] = new_classes
+        return xiaozhitiao_json
+
 
 
     def parase_vod_info(self,vod_info,vod_dic):
@@ -60,14 +90,10 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_id = ele_list[2].find("a").get("href")
         name = self.format_key(ele_list[1].text.split("】")[-1].split(vod_id)[0])
         type_name = ele_list[1].text.split("【")[-1].split("】")[0]
-        vod_douban_detail = self.getDoubanDetail(name)
-        if vod_douban_detail:
-            vod_detail = vod_douban_detail
-        else:
-            vod_detail.vod_name = name
-            vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
-            vod_detail.type_name = type_name
-            vod_detail.vod_remarks = update_time
+        vod_detail.vod_name = name
+        vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
+        vod_detail.type_name = type_name
+        vod_detail.vod_remarks = update_time
         vod_detail.vod_id = vod_id
         if type_name in self.categort_list:
             return vod_detail.to_dict()
@@ -114,11 +140,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail = VodDetail()
         ele_list = element.find_all("td")
         name = self.format_key(ele_list[0].text)
-        vod_douban_detail = self.getDoubanDetail(name)
-        if vod_douban_detail:
-            vod_detail = vod_douban_detail
-        else:
-            vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
+        vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
         vod_detail.vod_name = name
         vod_detail.vod_id = ele_list[1].find("a").get("href")
         return vod_detail.to_dict()
@@ -152,5 +174,5 @@ class SpiderXiaoZhiTiao(ChromeSpider):
             else:
                 vod_dic = self.parase_category_element(element)
                 classes_dic[tmp_index]["list"].append(vod_dic)
-        self.categort_list = self.categort_list[:12]  ##下个版本优化
-        return classes_dic[:12]
+        self.categort_list = self.categort_list[:13]  ##下个版本优化
+        return classes_dic[:13]
