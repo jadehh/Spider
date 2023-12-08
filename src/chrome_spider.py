@@ -210,7 +210,6 @@ class ChromeSpider():
                                               timeout=20,
                                               allow_redirects=True, stream=False)
                 if detail_rsp.status_code == 200:
-                    self.index = self.index + 1
                     detail_json = detail_rsp.json()
                     vodDetail = self.paraseVodDetailFromJson(detail_json)
                     self.JadeLog.INFO("豆瓣详情爬虫成功,名称为:{}".format(key), True)
