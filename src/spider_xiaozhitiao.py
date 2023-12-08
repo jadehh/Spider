@@ -89,14 +89,17 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         update_time = ele_list[0].text
         vod_id = ele_list[2].find("a").get("href")
         name = self.format_key(ele_list[1].text.split("】")[-1].split(vod_id)[0])
-        type_name = ele_list[1].text.split("【")[-1].split("】")[0]
-        vod_detail.vod_name = name
-        vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
-        vod_detail.type_name = type_name
-        vod_detail.vod_remarks = update_time
-        vod_detail.vod_id = vod_id
-        if type_name in self.categort_list:
-            return vod_detail.to_dict()
+        if name:
+            type_name = ele_list[1].text.split("【")[-1].split("】")[0]
+            vod_detail.vod_name = name
+            vod_detail.vod_content = ele_list[1].get("tooltip").split("|")[-1]
+            vod_detail.type_name = type_name
+            vod_detail.vod_remarks = update_time
+            vod_detail.vod_id = vod_id
+            if type_name in self.categort_list:
+                return vod_detail.to_dict()
+            else:
+                return None
         else:
             return None
 
@@ -140,10 +143,13 @@ class SpiderXiaoZhiTiao(ChromeSpider):
         vod_detail = VodDetail()
         ele_list = element.find_all("td")
         name = self.format_key(ele_list[0].text)
-        vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
-        vod_detail.vod_name = name
-        vod_detail.vod_id = ele_list[1].find("a").get("href")
-        return vod_detail.to_dict()
+        if name:
+            vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
+            vod_detail.vod_name = name
+            vod_detail.vod_id = ele_list[1].find("a").get("href")
+            return vod_detail.to_dict()
+        else:
+            return None
 
 
     # def get_pic(self,name):
@@ -173,6 +179,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
                 tmp_index = self.categort_list.index(element.text.strip())
             else:
                 vod_dic = self.parase_category_element(element)
-                classes_dic[tmp_index]["list"].append(vod_dic)
+                if vod_dic:
+                    classes_dic[tmp_index]["list"].append(vod_dic)
         self.categort_list = self.categort_list[:13]  ##下个版本优化
         return classes_dic[:13]
