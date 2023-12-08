@@ -10,3 +10,4 @@
 * 优化空字符串的名称
 * Github Actions有6个小时的限制
 * Vod ID 为 vod detail
+* vod id 改为字符串

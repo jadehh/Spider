@@ -7,6 +7,7 @@
 # @Software : Samples
 # @Desc     :
 import copy
+import json
 
 LocalAddress = "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py"
 
@@ -26,7 +27,7 @@ class VodShort(object):
     def set_id_to_dic(self):
         dic = self.to_dict()
         new_dic = copy.copy(dic)
-        new_dic["vod_id"] = dic
+        new_dic["vod_id"] = json.dumps(dic)
         return new_dic
 
 
