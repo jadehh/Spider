@@ -9,3 +9,4 @@
 * 优化爬虫豆瓣数量,json文件生成后再爬虫
 * 优化空字符串的名称
 * Github Actions有6个小时的限制
+* Vod ID 为 vod detail

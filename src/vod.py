@@ -6,6 +6,8 @@
 # @Email    : jadehh@1ive.com
 # @Software : Samples
 # @Desc     :
+import copy
+
 LocalAddress = "https://gh.con.sh/https://raw.githubusercontent.com/jadehh/TV/py"
 
 class VodShort(object):
@@ -20,6 +22,13 @@ class VodShort(object):
         for item in self.__dict__.items():
             dic[item[0]] = item[1]
         return dic
+
+    def set_id_to_dic(self):
+        dic = self.to_dict()
+        new_dic = copy.copy(dic)
+        new_dic["vod_id"] = dic
+        return new_dic
+
 
     def load_dic(self, dic):
         for key in list(dic.keys()):

@@ -97,7 +97,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
             vod_detail.vod_remarks = update_time
             vod_detail.vod_id = vod_id
             if type_name in self.categort_list:
-                return vod_detail.to_dict()
+                return vod_detail.set_id_to_dic()
             else:
                 return None
         else:
@@ -117,7 +117,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
     def format_key(self,key):
         key_list = ["4k", "2023", "4K","完结","惊悚","犯罪","恐怖","悬疑","-₂","韩国","美国","喜剧","动作","高码",
                     "-.","合集","无水印","〖〗","大电影","电影","1080p₂","丨","附系列","","t3460帧率版本","双语","正式版",
-                    "国印","持续更新","简日","最新","国漫","1080p","要q","英语","启蒙"]
+                    "国印","持续更新","简日","最新","国漫","1080p","要q","英语","启蒙","中字","熟肉"]
         new_key = key.lower()
         pattern = r'\d+'
         for key_work in key_list:
@@ -147,7 +147,7 @@ class SpiderXiaoZhiTiao(ChromeSpider):
             vod_detail.vod_content = ele_list[0].get("tooltip").split("|")[-1]
             vod_detail.vod_name = name
             vod_detail.vod_id = ele_list[1].find("a").get("href")
-            return vod_detail.to_dict()
+            return vod_detail.set_id_to_dic()
         else:
             return None
 
