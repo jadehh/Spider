@@ -11,3 +11,4 @@
 * Github Actions有6个小时的限制
 * Vod ID 为 vod detail
 * vod id 改为字符串
+* 不在使用豆瓣进行爬虫

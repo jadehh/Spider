@@ -150,7 +150,8 @@ class SpiderXiaoZhiTiao(ChromeSpider):
             return vod_detail.set_id_to_dic()
         else:
             return None
-
+    def getDoubanDetail(self, key):
+        return None
 
     # def get_pic(self,name):
     #     return ""
