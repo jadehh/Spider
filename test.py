@@ -19,9 +19,14 @@ def test_yunpan_share_spider():
     spider = SpiderYunPanShare()
     spider.homeContent(False)
 
+def test_wanou_spider():
+    from src.spider_wanou import SpiderWanou
+    spider = SpiderWanou()
+    spider.get()
 
 
 
 
 if __name__ == '__main__':
+    test_wanou_spider()
     test_xiaozhitiao_spider()
