@@ -42,7 +42,7 @@ jobs:
           git add json/wanou.json
           git add json/xiaozhitiao.json
           commit_msg="* 更新json爬虫结果"
-          git commit -a -m "$commit_msg"
+          git commit -a -m "$commit_msg" --force
       - name: 查看当前分支信息
         run: |
           ls -l
