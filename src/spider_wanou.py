@@ -30,8 +30,8 @@ class SpiderWanou(ChromeSpider):
                 extend_list.append(extend_dic)
             else:
                 extend_dic["name"] = elements[i].xpath("div/a")[0].xpath("text()")[0]
-                extend_dic["value"].append({"n": "全部", "v": "0"})
-                extend_dic["value"] = [{"n": elements[i].xpath("div/a")[1].xpath("text()")[0], "v": "hits"},
+                extend_dic["value"] = [{"n": "全部", "v": "0"},
+                                        {"n": elements[i].xpath("div/a")[1].xpath("text()")[0], "v": "hits"},
                                        {"n": elements[i].xpath("div/a")[2].xpath("text()")[0], "v": "score"}]
 
                 extend_list.append(extend_dic)
