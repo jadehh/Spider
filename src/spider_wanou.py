@@ -24,13 +24,13 @@ class SpiderWanou(ChromeSpider):
             extend_dic = {"key": str(i + 1), "name": "", "value": []}
             if i < len(elements) - 1:
                 extend_dic["name"] = elements[i].xpath("a/text()")[0]
-                extend_dic["value"].append({"n": "全部", "v": 0})
+                extend_dic["value"].append({"n": "全部", "v": "0"})
                 for ele in elements[i].xpath("div/a"):
                     extend_dic["value"].append({"n": ele.xpath("text()")[0], "v": ele.xpath("text()")[0]})
                 extend_list.append(extend_dic)
             else:
                 extend_dic["name"] = elements[i].xpath("div/a")[0].xpath("text()")[0]
-                extend_dic["value"].append({"n": "全部", "v": 0})
+                extend_dic["value"].append({"n": "全部", "v": "0"})
                 extend_dic["value"] = [{"n": elements[i].xpath("div/a")[1].xpath("text()")[0], "v": "hits"},
                                        {"n": elements[i].xpath("div/a")[2].xpath("text()")[0], "v": "score"}]
 
