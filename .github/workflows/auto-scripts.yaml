@@ -38,8 +38,9 @@ jobs:
         run: |
           git config --global user.email "jadehh@live.com"
           git config --global user.name "jade"
-          ls -l
-          git add json/*
+          ls json -l
+          git add json/wanou.json
+          git add json/xiaozhitiao.json
           commit_msg="* 更新json爬虫结果"
           git commit -a -m "$commit_msg"
       - name: 查看当前分支信息
