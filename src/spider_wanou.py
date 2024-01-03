@@ -45,7 +45,7 @@ class SpiderWanou(ChromeSpider):
                 rsp = self.session.get(url, headers=header)
             return rsp
         except Exception as e:
-            self.logger.error("url地址为:{},访问失败,失败原因为:{}".format(url, e))
+            self.JadeLog.error("url地址为:{},访问失败,失败原因为:{}".format(url, e))
             sys.exit()
             return None
 
