@@ -24,9 +24,14 @@ def test_wanou_spider():
     spider = SpiderWanou()
     spider.get()
 
+def test_70kankan_spider():
+    from src.spider_70kankan import Spider70Kankan
+    spider = Spider70Kankan()
+    spider.get()
 
 
 
 if __name__ == '__main__':
     test_wanou_spider()
     test_xiaozhitiao_spider()
+    test_70kankan_spider()
