@@ -6,7 +6,8 @@
 # @Email    : jadehh@1ive.com
 # @Software : Samples
 # @Desc     :
-
+import time
+import requests
 from src.chrome_spider import ChromeSpider,BeautifulSoup
 import json
 
@@ -23,17 +24,16 @@ class Spider70Kankan(ChromeSpider):
     def fetch(self, url, header=None):
         try:
             if header:
-                rsp = self.session.get(url, headers=self.header)
+                rsp = requests.get(url, headers=self.header)
             else:
-                rsp = self.session.get(url, headers=header)
+                rsp = requests.get(url, headers=header)
             rsp.encoding = "utf-8-sig"
             if rsp.status_code == 200:
                 return rsp.text
             else:
                 self.fetch(url,header)
         except Exception as e:
-            self.logger.error("url地址为:{},访问失败,失败原因为:{}".format(url, e))
-            sys.exit()
+            self.JadeLog.ERROR("url地址为:{},访问失败,失败原因为:{}".format(url, e))
             return None
 
 
@@ -45,14 +45,23 @@ class Spider70Kankan(ChromeSpider):
         elements = soup.select("[class=\"sy scon clearfix\"]")[0].select("dl")
         i = 0
         for element in elements:
-            extend_dic = {"key": str(i + 1), "name": element.find("dt").text.replace("按", "").replace("：", ""),
+            type_name =  element.find("dt").text.replace("按", "").replace("：", "")
+            extend_dic = {"key": str(i + 1), "name": type_name,
                           "value": []}
             type_elements = element.find_all("a")
+
+            if type_name == "剧情":
+                index = 3
+            elif type_name == "年代":
+                index = 2
+            elif type_name == "地区":
+                index = 4
+
             for type_element in type_elements:
                 type_id_list = type_element.attrs["href"].split("/")
-
-                extend_dic["value"].append({"n": type_element.text, "v": type_id_list[3]})
+                extend_dic["value"].append({"n": type_element.text, "v": type_id_list[index]})
             extend_list.append(extend_dic)
+            i = i + 1
 
         return extend_list
 
@@ -68,4 +77,5 @@ class Spider70Kankan(ChromeSpider):
 
         with open("json/70kankan.json", "wb") as f:
             f.write(json.dumps(category_extend_dic, ensure_ascii=False, indent=4).encode("utf-8"))
+        self.JadeLog.INFO("70看看JSON文件写入成功", True)
         self.release()
