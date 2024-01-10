@@ -29,14 +29,15 @@ class SpiderJiuJiuLiu(ChromeSpider):
             type_elements = cate_element.find_all("ul")
             if i == 0:
                 for type_element in type_elements:
-                    extend_dic = {"key": str(index + 1), "name": "", "value": []}
+                    extend_dic = {"key": "/show/id/{}".format(index + 1), "name": "", "value": []}
                     extend_dic["name"] = type_element.find("li").text
                     for ele in type_element.find_all("li")[1:]:
                         extend_dic["value"].append({"n": ele.text, "v": ele.text})
                     extend_list.append(extend_dic)
                     index  = index +1
             else:
-                extend_dic = {"key": str(index + 1), "name": "", "value": []}
+
+                extend_dic = {"key":"/show/id/{}".format(index + 1), "name": "", "value": []}
                 extend_dic["name"] = cate_element.find("li").text
                 extend_dic["value"].append({"n": "全部", "v": "全部"})
                 for ele in cate_element.find_all("li")[1:]:
