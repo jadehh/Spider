@@ -9,6 +9,7 @@
 from bs4 import BeautifulSoup
 from difflib import SequenceMatcher  # 导入库
 import re
+
 def test_xiaozhitiao_spider():
     from src.spider_xiaozhitiao import SpiderXiaoZhiTiao
     spider = SpiderXiaoZhiTiao()
@@ -29,9 +30,15 @@ def test_70kankan_spider():
     spider = Spider70Kankan()
     spider.get()
 
+def test_jiujiuliu_spider():
+    from src.spider_996 import SpiderJiuJiuLiu
+    spider = SpiderJiuJiuLiu()
+    spider.get()
+
 
 
 if __name__ == '__main__':
     test_wanou_spider()
     test_xiaozhitiao_spider()
     test_70kankan_spider()
+    test_jiujiuliu_spider()
