@@ -42,6 +42,7 @@ jobs:
           git add json/wanou.json
           git add json/xiaozhitiao.json
           git add json/70kankan.json
+          git add json/996.json
           commit_msg="* 更新json爬虫结果"
           git commit -a -m "$commit_msg" --amend
       - name: 查看当前分支信息
