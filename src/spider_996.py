@@ -31,16 +31,24 @@ class SpiderJiuJiuLiu(ChromeSpider):
                 for type_element in type_elements:
                     extend_dic = {"key": str(index + 1), "name": "", "value": []}
                     extend_dic["name"] = type_element.find("li").text
-                    for ele in type_element.find_all("li")[1:]:
-                        extend_dic["value"].append({"n": ele.text, "v": ele.text})
+                    if index == 0:
+                        for ele in type_element.find_all("li")[1:]:
+                            if (len(ele.text)) > 0:
+                                extend_dic["value"].append({"n": ele.text, "v": ele.find("a").attrs["href"].split("/")[-1].split(".")[0]})
+                    else:
+
+                        for ele in type_element.find_all("li")[1:]:
+                            if (len(ele.text)) > 0:
+                                extend_dic["value"].append({"n": ele.text, "v": ele.text})
                     extend_list.append(extend_dic)
                     index  = index +1
             else:
                 extend_dic = {"key": str(index + 1), "name": "", "value": []}
                 extend_dic["name"] = cate_element.find("li").text
-                extend_dic["value"].append({"n": "全部", "v": "全部"})
+                extend_dic["value"].append({"n": "全部", "v": "time"})
                 for ele in cate_element.find_all("li")[1:]:
-                    extend_dic["value"].append({"n": ele.text, "v": ele.text})
+                    if (len(ele.text)) > 0:
+                        extend_dic["value"].append({"n": ele.text, "v": ele.find("a").attrs["href"].split("/")[3]})
                 extend_list.append(extend_dic)
                 index = index + 1
         return extend_list
@@ -53,7 +61,7 @@ class SpiderJiuJiuLiu(ChromeSpider):
                 rsp = self.session.get(url, headers=header)
             return rsp
         except Exception as e:
-            self.JadeLog.error("url地址为:{},访问失败,失败原因为:{}".format(url, e))
+            self.JadeLog.ERROR("url地址为:{},访问失败,失败原因为:{}".format(url, e))
             sys.exit()
             return None
 

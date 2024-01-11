@@ -38,7 +38,7 @@ def test_jiujiuliu_spider():
 
 
 if __name__ == '__main__':
-    test_wanou_spider()
-    test_xiaozhitiao_spider()
-    test_70kankan_spider()
+    # test_wanou_spider()
+    # test_xiaozhitiao_spider()
+    # test_70kankan_spider()
     test_jiujiuliu_spider()
